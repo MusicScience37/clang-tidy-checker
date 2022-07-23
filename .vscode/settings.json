@@ -4,6 +4,7 @@
     "musicscience",
     "pipx",
     "pytest",
+    "SAST",
     "venv",
     "virtualenvs"
   ],
