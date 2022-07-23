@@ -2,8 +2,10 @@
 """
 
 import shutil
+
 import trio
 import trio.testing
+import pytest
 
 from clang_tidy_checker.search_clang_tidy import search_clang_tidy
 
@@ -30,3 +32,11 @@ async def test_search_clang_tidy_with_path():
     assert "clang-tidy" in path
     assert not await trio.Path(path).is_symlink()
     assert await trio.Path(path).is_file()
+
+
+@trio.testing.trio_test
+async def test_search_clang_tidy_not_found():
+    """Test of search_clang_tidy with an executable name not found."""
+
+    with pytest.raises(RuntimeError):
+        await search_clang_tidy("invalid-command")
