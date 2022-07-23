@@ -1,5 +1,12 @@
 {
-  "cSpell.words": [],
+  "cSpell.words": [
+    "cobertura",
+    "musicscience",
+    "pipx",
+    "pytest",
+    "venv",
+    "virtualenvs"
+  ],
   "clangd.arguments": ["--clang-tidy"],
   "C_Cpp.intelliSenseEngine": "Disabled",
   "C_Cpp.autocomplete": "Disabled",
