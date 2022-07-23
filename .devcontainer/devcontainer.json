@@ -1,0 +1,24 @@
+{
+  "build": { "dockerfile": "Dockerfile" },
+  "containerEnv": {},
+  "extensions": [
+    "ms-vscode.cpptools",
+    "llvm-vs-code-extensions.vscode-clangd",
+    "twxs.cmake",
+    "cheshirekow.cmake-format",
+    "streetsidesoftware.code-spell-checker",
+    "davidanson.vscode-markdownlint",
+    "jebbs.plantuml",
+    "esbenp.prettier-vscode",
+    "ms-python.python",
+    "njpwerner.autodocstring",
+    "lextudio.restructuredtext",
+    "trond-snekvik.simple-rst",
+    "hbenl.vscode-test-explorer",
+    "ms-azuretools.vscode-docker"
+  ],
+  "postCreateCommand": "bash ./.devcontainer/setup.bash",
+  "settings": {
+    "cmakeFormat.exePath": "/workspaces/numerical-collection-cpp/.venv/bin/cmake-format"
+  }
+}

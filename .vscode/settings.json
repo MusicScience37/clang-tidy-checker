@@ -1,0 +1,15 @@
+{
+  "cSpell.words": [],
+  "clangd.arguments": ["--clang-tidy"],
+  "C_Cpp.intelliSenseEngine": "Disabled",
+  "C_Cpp.autocomplete": "Disabled",
+  "C_Cpp.errorSquiggles": "Disabled",
+  "esbonio.sphinx.confDir": "${workspaceFolder}/doc/src",
+  "restructuredtext.linter.disabledLinters": ["rstcheck", "rst-lint"],
+  "esbonio.server.enabled": false,
+  "files.watcherExclude": {
+    "**/.venv/**": true
+  },
+  "python.formatting.provider": "black",
+  "hadolint.cliOptions": ["--ignore", "DL3013", "--no-color"]
+}
