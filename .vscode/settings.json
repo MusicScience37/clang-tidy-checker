@@ -1,8 +1,14 @@
 {
   "cSpell.words": [
+    "autobuild",
     "cobertura",
+    "htmlcov",
+    "Kabashima",
+    "Kenta",
     "musicscience",
+    "mypy",
     "pipx",
+    "pylint",
     "pytest",
     "SAST",
     "venv",
