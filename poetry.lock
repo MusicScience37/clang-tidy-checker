@@ -828,6 +828,23 @@ sniffio = "*"
 sortedcontainers = "*"
 
 [[package]]
+name = "trio-typing"
+version = "0.7.0"
+description = "Static type checking support for Trio and related projects"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+mypy = {version = ">=0.920", optional = true, markers = "extra == \"mypy\""}
+mypy-extensions = ">=0.4.2"
+trio = ">=0.16.0"
+typing-extensions = ">=3.7.4"
+
+[package.extras]
+mypy = ["mypy (>=0.920)"]
+
+[[package]]
 name = "typing-extensions"
 version = "4.3.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
@@ -889,7 +906,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "0738492950d917c45f50cca0dc3d98132e907c4899963ff71b8f9e8619acb477"
+content-hash = "35a64112b719981262d11957045c4b9b7843110cde5de6d97646f5fa3be7a490"
 
 [metadata.files]
 alabaster = [
@@ -1436,6 +1453,10 @@ tornado = [
 trio = [
     {file = "trio-0.21.0-py3-none-any.whl", hash = "sha256:4dc0bf9d5cc78767fc4516325b6d80cc0968705a31d0eec2ecd7cdda466265b0"},
     {file = "trio-0.21.0.tar.gz", hash = "sha256:523f39b7b69eef73501cebfe1aafd400a9aad5b03543a0eded52952488ff1c13"},
+]
+trio-typing = [
+    {file = "trio-typing-0.7.0.tar.gz", hash = "sha256:5bb2184de144c15f2cc252bba4fd167125758df7339c4f7bc40538940aefa3b9"},
+    {file = "trio_typing-0.7.0-py3-none-any.whl", hash = "sha256:156ba760f444aa2f8af43f4459d462415fc297234feb27018e4e902bb62a122b"},
 ]
 typing-extensions = [
     {file = "typing_extensions-4.3.0-py3-none-any.whl", hash = "sha256:25642c956049920a5aa49edcdd6ab1e06d7e5d467fc00e0506c44ac86fbfca02"},
