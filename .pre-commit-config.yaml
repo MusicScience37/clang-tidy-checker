@@ -22,12 +22,12 @@ repos:
         language: system
         files: (CMakeLists.txt|.*\.cmake)$
         exclude: source_list.cmake
-        entry: pipenv run cmake-format -i
+        entry: poetry run cmake-format -i
       - id: check-encoding
         name: check-encoding
         description: Check encoding of files.
         language: system
-        entry: pipenv run python scripts/check_encoding.py
+        entry: poetry run python scripts/check_encoding.py
       - id: black
         name: black
         description: "Black: The uncompromising Python code formatter"
