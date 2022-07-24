@@ -8,17 +8,17 @@ THIS_DIR = pathlib.Path(__file__).absolute().parent
 ROOT_DIR = THIS_DIR.parent
 
 
-def replace_root_dir(input: str) -> str:
+def replace_root_dir(inputs: str) -> str:
     """Replace path of root directory.
 
     Args:
-        input (str): Input.
+        inputs (str): Input.
 
     Returns:
         str: Output.
     """
 
-    return input.replace(str(ROOT_DIR), "<root-dir>")
+    return inputs.replace(str(ROOT_DIR), "<root-dir>")
 
 
 PATH_SCRUBBER = replace_root_dir
