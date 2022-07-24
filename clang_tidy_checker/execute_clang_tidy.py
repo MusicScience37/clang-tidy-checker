@@ -37,8 +37,8 @@ async def execute_clang_tidy(*, config: Config, input_file: str) -> ExecutionRes
     result = await trio.run_process(
         [
             config.clang_tidy_path,
-            "--config=",
             "--quiet",
+            "--warnings-as-errors=*",
             "-p",
             config.build_dir,
             input_file,
@@ -53,10 +53,16 @@ async def execute_clang_tidy(*, config: Config, input_file: str) -> ExecutionRes
     LOGGER.info(
         "Check of %s finished with exit code %s.", input_file, result.returncode
     )
-    if result.stdout != "":
-        LOGGER.debug("stdout: %s", stdout)
-    if result.stderr != "":
-        LOGGER.warning("stderr: %s", stderr)
+    if result.returncode == 0:
+        if result.stdout != "":
+            LOGGER.debug("%s (stdout):\n%s", input_file, stdout)
+        if result.stderr != "":
+            LOGGER.debug("%s (stderr):\n%s", input_file, stderr)
+    else:
+        if result.stdout != "":
+            LOGGER.warning("%s (stdout):\n%s", input_file, stdout)
+        if result.stderr != "":
+            LOGGER.warning("%s (stderr):\n%s", input_file, stderr)
 
     return ExecutionResult(
         input_file=input_file,

@@ -7,6 +7,37 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "allpairspy"
+version = "2.5.0"
+description = "Pairwise test combinations generator"
+category = "dev"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+
+[package.dependencies]
+six = ">=1.10.0,<2.0.0"
+
+[package.extras]
+build = ["twine", "wheel"]
+release = ["releasecmd (>=0.0.18,<0.1.0)"]
+test = ["pytest"]
+
+[[package]]
+name = "approvaltests"
+version = "5.3.1"
+description = "Assertion/verification library to aid testing"
+category = "dev"
+optional = false
+python-versions = ">=3.6.1"
+
+[package.dependencies]
+allpairspy = ">=2.1.0"
+beautifulsoup4 = ">=4.4.0"
+empty-files = ">=0.0.3"
+pyperclip = ">=1.5.29"
+pytest = ">=4.0.0"
+
+[[package]]
 name = "astroid"
 version = "2.11.7"
 description = "An abstract syntax tree for Python with inference support."
@@ -59,6 +90,21 @@ python-versions = ">=3.6"
 
 [package.dependencies]
 pytz = ">=2015.7"
+
+[[package]]
+name = "beautifulsoup4"
+version = "4.11.1"
+description = "Screen-scraping library"
+category = "dev"
+optional = false
+python-versions = ">=3.6.0"
+
+[package.dependencies]
+soupsieve = ">1.2"
+
+[package.extras]
+html5lib = ["html5lib"]
+lxml = ["lxml"]
 
 [[package]]
 name = "black"
@@ -208,6 +254,17 @@ description = "Docutils -- Python Documentation Utilities"
 category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+
+[[package]]
+name = "empty-files"
+version = "0.0.3"
+description = "Serves empty files of many types"
+category = "dev"
+optional = false
+python-versions = ">=3.6.1"
+
+[package.dependencies]
+requests = "*"
 
 [[package]]
 name = "filelock"
@@ -536,6 +593,14 @@ python-versions = ">=3.6.8"
 diagrams = ["railroad-diagrams", "jinja2"]
 
 [[package]]
+name = "pyperclip"
+version = "1.8.2"
+description = "A cross-platform clipboard module for Python. (Only handles plain text for now.)"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pytest"
 version = "7.1.2"
 description = "pytest: simple powerful testing with Python"
@@ -555,6 +620,18 @@ tomli = ">=1.0.0"
 
 [package.extras]
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
+
+[[package]]
+name = "pytest-approvaltests"
+version = "0.2.4"
+description = "A plugin to use approvaltests with pytest"
+category = "dev"
+optional = false
+python-versions = ">=3.6.1"
+
+[package.dependencies]
+approvaltests = "*"
+pytest = ">=7.0.1"
 
 [[package]]
 name = "pytest-cov"
@@ -647,6 +724,14 @@ description = "Sorted Containers -- Sorted List, Sorted Dict, Sorted Set"
 category = "main"
 optional = false
 python-versions = "*"
+
+[[package]]
+name = "soupsieve"
+version = "2.3.2.post1"
+description = "A modern CSS selector implementation for Beautiful Soup."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
 
 [[package]]
 name = "sphinx"
@@ -921,12 +1006,20 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "2bafc7038b75cd65bb6ec468fe6b332c11d2d65e9880706a40a1b52b0a83e2c2"
+content-hash = "0b460408f41b3549eb4edd92f9d65c7f638b9f08003cc20f6cd4597fdc5d7919"
 
 [metadata.files]
 alabaster = [
     {file = "alabaster-0.7.12-py2.py3-none-any.whl", hash = "sha256:446438bdcca0e05bd45ea2de1668c1d9b032e1a9154c2c259092d77031ddd359"},
     {file = "alabaster-0.7.12.tar.gz", hash = "sha256:a661d72d58e6ea8a57f7a86e37d86716863ee5e92788398526d58b26a4e4dc02"},
+]
+allpairspy = [
+    {file = "allpairspy-2.5.0-py2.py3-none-any.whl", hash = "sha256:66dbcb30c22a2c73e1cccae9ae7093f8e18bdf542e4ba2864ce822463735b5b4"},
+    {file = "allpairspy-2.5.0.tar.gz", hash = "sha256:9358484c91abe74ba18daf9d6d6904c5be7cc8818397d05248c9d336023c28b1"},
+]
+approvaltests = [
+    {file = "approvaltests-5.3.1-py3-none-any.whl", hash = "sha256:94e4c7adc2e48143034c98c5af146ab6e6337ccc3a807bff305a3eb3c4619cc1"},
+    {file = "approvaltests-5.3.1.tar.gz", hash = "sha256:90bc01f9c1a5fbe5235cbf30d9b5073dbb9a5dd971b97117d50f39e2d97a17f7"},
 ]
 astroid = [
     {file = "astroid-2.11.7-py3-none-any.whl", hash = "sha256:86b0a340a512c65abf4368b80252754cda17c02cdbbd3f587dddf98112233e7b"},
@@ -946,6 +1039,10 @@ attrs = [
 babel = [
     {file = "Babel-2.10.3-py3-none-any.whl", hash = "sha256:ff56f4892c1c4bf0d814575ea23471c230d544203c7748e8c68f0089478d48eb"},
     {file = "Babel-2.10.3.tar.gz", hash = "sha256:7614553711ee97490f732126dc077f8d0ae084ebc6a96e23db1482afabdb2c51"},
+]
+beautifulsoup4 = [
+    {file = "beautifulsoup4-4.11.1-py3-none-any.whl", hash = "sha256:58d5c3d29f5a36ffeb94f02f0d786cd53014cf9b3b3951d42e0080d8a9498d30"},
+    {file = "beautifulsoup4-4.11.1.tar.gz", hash = "sha256:ad9aa55b65ef2808eb405f46cf74df7fcb7044d5cbc26487f96eb2ef2e436693"},
 ]
 black = [
     {file = "black-22.6.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:f586c26118bc6e714ec58c09df0157fe2d9ee195c764f630eb0d8e7ccce72e69"},
@@ -1120,6 +1217,10 @@ doc8 = [
 docutils = [
     {file = "docutils-0.17.1-py2.py3-none-any.whl", hash = "sha256:cf316c8370a737a022b72b56874f6602acf974a37a9fba42ec2876387549fc61"},
     {file = "docutils-0.17.1.tar.gz", hash = "sha256:686577d2e4c32380bb50cbb22f575ed742d58168cee37e99117a854bcd88f125"},
+]
+empty-files = [
+    {file = "empty-files-0.0.3.tar.gz", hash = "sha256:87277db100a3bfdafc2ba18f6094cd37090e257058fb1c0b15873a89e1003149"},
+    {file = "empty_files-0.0.3-py3-none-any.whl", hash = "sha256:ec464f7f88a028d4567b380d57983fc4ffb79147538626690cd94c33090cd216"},
 ]
 filelock = [
     {file = "filelock-3.7.1-py3-none-any.whl", hash = "sha256:37def7b658813cda163b56fc564cdc75e86d338246458c4c28ae84cabefa2404"},
@@ -1334,9 +1435,16 @@ pyparsing = [
     {file = "pyparsing-3.0.9-py3-none-any.whl", hash = "sha256:5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc"},
     {file = "pyparsing-3.0.9.tar.gz", hash = "sha256:2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"},
 ]
+pyperclip = [
+    {file = "pyperclip-1.8.2.tar.gz", hash = "sha256:105254a8b04934f0bc84e9c24eb360a591aaf6535c9def5f29d92af107a9bf57"},
+]
 pytest = [
     {file = "pytest-7.1.2-py3-none-any.whl", hash = "sha256:13d0e3ccfc2b6e26be000cb6568c832ba67ba32e719443bfe725814d3c42433c"},
     {file = "pytest-7.1.2.tar.gz", hash = "sha256:a06a0425453864a270bc45e71f783330a7428defb4230fb5e6a731fde06ecd45"},
+]
+pytest-approvaltests = [
+    {file = "pytest-approvaltests-0.2.4.tar.gz", hash = "sha256:325fafdc1ed49d10f88f072c3305b3d35557cbc15748d835be3020db4092e9a6"},
+    {file = "pytest_approvaltests-0.2.4-py3-none-any.whl", hash = "sha256:199ad1cac8ebcbf681f4876d07bf3bbb8bdfa49396e16747027f6bac2fa0a075"},
 ]
 pytest-cov = [
     {file = "pytest-cov-3.0.0.tar.gz", hash = "sha256:e7f0f5b1617d2210a2cabc266dfe2f4c75a8d32fb89eafb7ad9d06f6d076d470"},
@@ -1403,6 +1511,10 @@ snowballstemmer = [
 sortedcontainers = [
     {file = "sortedcontainers-2.4.0-py2.py3-none-any.whl", hash = "sha256:a163dcaede0f1c021485e957a39245190e74249897e2ae4b2aa38595db237ee0"},
     {file = "sortedcontainers-2.4.0.tar.gz", hash = "sha256:25caa5a06cc30b6b83d11423433f65d1f9d76c4c6a0c90e3379eaa43b9bfdb88"},
+]
+soupsieve = [
+    {file = "soupsieve-2.3.2.post1-py3-none-any.whl", hash = "sha256:3b2503d3c7084a42b1ebd08116e5f81aadfaea95863628c80a3b774a11b7c759"},
+    {file = "soupsieve-2.3.2.post1.tar.gz", hash = "sha256:fc53893b3da2c33de295667a0e19f078c14bf86544af307354de5fcf12a3f30d"},
 ]
 sphinx = [
     {file = "Sphinx-5.0.2-py3-none-any.whl", hash = "sha256:d3e57663eed1d7c5c50895d191fdeda0b54ded6f44d5621b50709466c338d1e8"},

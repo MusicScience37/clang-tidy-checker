@@ -25,6 +25,7 @@ pytest = "^7.1.2"
 pytest-cov = "^3.0.0"
 trio-typing = {extras = ["mypy"], version = "^0.7.0"}
 cmakelang = "^0.6.13"
+pytest-approvaltests = "^0.2.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
