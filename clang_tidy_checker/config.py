@@ -17,6 +17,12 @@ BUILD_DIR_KEY = "build_dir"
 # Default path of the build directory.
 DEFAULT_BUILD_DIR = "build"
 
+# Key of the flag to show progress.
+SHOW_PROGRESS_KEY = "show_progress"
+
+# Default flag value to show progress.
+DEFAULT_SHOW_PROGRESS = True
+
 
 @dataclasses.dataclass
 class Config:
@@ -24,6 +30,7 @@ class Config:
 
     clang_tidy_path: str
     build_dir: str
+    show_progress: bool
 
 
 async def parse_config_from_dict(config: dict) -> Config:
@@ -43,4 +50,10 @@ async def parse_config_from_dict(config: dict) -> Config:
 
     build_dir = str(config.get(BUILD_DIR_KEY, DEFAULT_BUILD_DIR))
 
-    return Config(clang_tidy_path=clang_tidy_path, build_dir=build_dir)
+    show_progress = bool(config.get(SHOW_PROGRESS_KEY, DEFAULT_SHOW_PROGRESS))
+
+    return Config(
+        clang_tidy_path=clang_tidy_path,
+        build_dir=build_dir,
+        show_progress=show_progress,
+    )

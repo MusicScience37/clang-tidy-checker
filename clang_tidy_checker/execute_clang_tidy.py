@@ -20,6 +20,7 @@ class ExecutionResult:
     stderr: str
 
 
+# TODO: better handling.
 CONSOLE_ENCODING = "utf8"
 
 

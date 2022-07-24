@@ -21,6 +21,8 @@ async def test_parse_config_from_dict_default():
 
     assert output.build_dir == "build"
 
+    assert output.show_progress
+
 
 @trio.testing.trio_test
 async def test_parse_config_from_dict_search_clang_tidy():
@@ -37,6 +39,8 @@ async def test_parse_config_from_dict_search_clang_tidy():
 
     assert output.build_dir == "build"
 
+    assert output.show_progress
+
 
 @trio.testing.trio_test
 async def test_parse_config_from_dict_with_build_dir():
@@ -51,3 +55,22 @@ async def test_parse_config_from_dict_with_build_dir():
     assert await trio.Path(output.clang_tidy_path).is_file()
 
     assert output.build_dir == "build_test"
+
+    assert output.show_progress
+
+
+@trio.testing.trio_test
+async def test_parse_config_from_dict_without_progress():
+    """Test of parse_config_from_dict without showing progress."""
+
+    input_config = {"show_progress": False}
+
+    output = await parse_config_from_dict(input_config)
+
+    assert "clang-tidy" in output.clang_tidy_path
+    assert not await trio.Path(output.clang_tidy_path).is_symlink()
+    assert await trio.Path(output.clang_tidy_path).is_file()
+
+    assert output.build_dir == "build"
+
+    assert not output.show_progress

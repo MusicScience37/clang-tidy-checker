@@ -89,4 +89,6 @@ def default_config() -> Config:
         Config: Default configuration.
     """
 
-    return trio.run(parse_config_from_dict, {})
+    config = trio.run(parse_config_from_dict, {})
+    config.show_progress = False
+    return config

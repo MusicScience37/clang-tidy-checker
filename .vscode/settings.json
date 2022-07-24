@@ -15,6 +15,7 @@
     "pylint",
     "pytest",
     "SAST",
+    "tqdm",
     "venv",
     "virtualenvs"
   ],
