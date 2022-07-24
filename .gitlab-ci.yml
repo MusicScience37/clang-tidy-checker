@@ -34,10 +34,12 @@ test:
       - .coverage
       - coverage.xml
       - htmlcov
+      - tests/approvals
     reports:
       coverage_report:
         coverage_format: cobertura
         path: coverage.xml
+    when: always
   coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
 
 pre-commit:
