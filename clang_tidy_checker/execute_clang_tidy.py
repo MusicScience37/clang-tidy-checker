@@ -51,19 +51,22 @@ async def execute_clang_tidy(*, config: Config, input_file: str) -> ExecutionRes
     stdout = result.stdout.decode(encoding=CONSOLE_ENCODING)
     stderr = result.stderr.decode(encoding=CONSOLE_ENCODING)
 
-    LOGGER.info(
-        "Check of %s finished with exit code %s.", input_file, result.returncode
-    )
     if result.returncode == 0:
+        LOGGER.info(
+            "Check of %s finished with exit code %s.", input_file, result.returncode
+        )
         if result.stdout != "":
-            LOGGER.debug("%s (stdout):\n%s", input_file, stdout)
+            LOGGER.debug("%s", stdout)
         if result.stderr != "":
-            LOGGER.debug("%s (stderr):\n%s", input_file, stderr)
+            LOGGER.debug("%s", stderr)
     else:
-        if result.stdout != "":
-            LOGGER.warning("%s (stdout):\n%s", input_file, stdout)
-        if result.stderr != "":
-            LOGGER.warning("%s (stderr):\n%s", input_file, stderr)
+        LOGGER.warning(
+            "Check of %s finished with exit code %s.\n%s\n%s",
+            input_file,
+            result.returncode,
+            stdout,
+            stderr,
+        )
 
     return ExecutionResult(
         input_file=input_file,

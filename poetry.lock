@@ -962,6 +962,14 @@ typing-extensions = ">=3.7.4"
 mypy = ["mypy (>=0.920)"]
 
 [[package]]
+name = "types-pyyaml"
+version = "6.0.11"
+description = "Typing stubs for PyYAML"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "typing-extensions"
 version = "4.3.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
@@ -1023,7 +1031,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "9965f066097955b0b2bd0788b423f02f278695de341aba3804b8f692aa092e1d"
+content-hash = "ca2e34e94c29c5ebf4175bb5d234cb6717da921f87f148dfb2e00bd32c58ff1d"
 
 [metadata.files]
 alabaster = [
@@ -1609,6 +1617,10 @@ trio = [
 trio-typing = [
     {file = "trio-typing-0.7.0.tar.gz", hash = "sha256:5bb2184de144c15f2cc252bba4fd167125758df7339c4f7bc40538940aefa3b9"},
     {file = "trio_typing-0.7.0-py3-none-any.whl", hash = "sha256:156ba760f444aa2f8af43f4459d462415fc297234feb27018e4e902bb62a122b"},
+]
+types-pyyaml = [
+    {file = "types-PyYAML-6.0.11.tar.gz", hash = "sha256:7f7da2fd11e9bc1e5e9eb3ea1be84f4849747017a59fc2eee0ea34ed1147c2e0"},
+    {file = "types_PyYAML-6.0.11-py3-none-any.whl", hash = "sha256:8f890028123607379c63550179ddaec4517dc751f4c527a52bb61934bf495989"},
 ]
 typing-extensions = [
     {file = "typing_extensions-4.3.0-py3-none-any.whl", hash = "sha256:25642c956049920a5aa49edcdd6ab1e06d7e5d467fc00e0506c44ac86fbfca02"},
