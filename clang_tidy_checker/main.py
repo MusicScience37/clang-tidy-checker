@@ -15,6 +15,7 @@ from clang_tidy_checker.config import (
     parse_config_from_dict,
     BUILD_DIR_KEY,
     CHECKED_FILE_PATTERNS_KEY,
+    SHOW_PROGRESS_KEY,
 )
 from clang_tidy_checker.search_checked_files import search_checked_files
 
@@ -61,7 +62,10 @@ def load_config_file(*config_files) -> dict:
 @click.option("--config", "-c", default="", help="Configuration file path.")
 @click.option("--build_dir", "-b", default="", help="Build directory.")
 @click.option("--pattern", "-p", multiple=True, help="Checked file pattern.")
-def main(config: str, build_dir: str, pattern: typing.List[str]):
+@click.option(
+    "--no-ascii", is_flag=True, help="Prevent writing ASCII escape sequences."
+)
+def main(config: str, build_dir: str, pattern: typing.List[str], no_ascii: bool):
     """Check files using clang-tidy."""
 
     logging.basicConfig(level=logging.INFO, format="%(message)s")
@@ -69,8 +73,10 @@ def main(config: str, build_dir: str, pattern: typing.List[str]):
     config_dict = load_config_file(".clang-tidy-checker", config)
     if build_dir != "":
         config_dict[BUILD_DIR_KEY] = build_dir
-    if pattern != []:
+    if pattern:
         config_dict[CHECKED_FILE_PATTERNS_KEY] = pattern
+    if no_ascii:
+        config_dict[SHOW_PROGRESS_KEY] = False
 
     is_success = trio.run(async_main, config_dict)
 

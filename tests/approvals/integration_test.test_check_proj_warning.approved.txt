@@ -1,0 +1,14 @@
+exit_code: 1
+stdout:
+
+stderr:
+Check of <root-dir>/sample_inputs/proj_warning/src/sample_function.cpp finished with exit code 1.
+<root-dir>/sample_inputs/proj_warning/src/sample_function.cpp:5:26: error: do not call c-style vararg functions [cppcoreguidelines-pro-type-vararg,hicpp-vararg,-warnings-as-errors]
+void sample_function() { std::printf("Test"); }
+                         ^
+
+3157 warnings generated.
+
+Check of <root-dir>/sample_inputs/proj_warning/src/main.cpp finished with exit code 0.
+Some errors detected.
+
