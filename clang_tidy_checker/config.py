@@ -2,6 +2,7 @@
 """
 
 import dataclasses
+import typing
 
 from clang_tidy_checker.search_clang_tidy import search_clang_tidy
 
@@ -23,6 +24,17 @@ SHOW_PROGRESS_KEY = "show_progress"
 # Default flag value to show progress.
 DEFAULT_SHOW_PROGRESS = True
 
+# Key of checked file patterns.
+CHECKED_FILE_PATTERNS_KEY = "file_patterns"
+
+# Default checked files.
+DEFAULT_CHECKED_FILE_PATTERNS = [
+    "**/*.c",
+    "**/*.cpp",
+    "**/*.cxx",
+    "**/*.cc",
+]
+
 
 @dataclasses.dataclass
 class Config:
@@ -31,6 +43,7 @@ class Config:
     clang_tidy_path: str
     build_dir: str
     show_progress: bool
+    checked_file_patterns: typing.List[str]
 
 
 async def parse_config_from_dict(config: dict) -> Config:
@@ -52,8 +65,13 @@ async def parse_config_from_dict(config: dict) -> Config:
 
     show_progress = bool(config.get(SHOW_PROGRESS_KEY, DEFAULT_SHOW_PROGRESS))
 
+    checked_file_patterns = list(
+        config.get(CHECKED_FILE_PATTERNS_KEY, DEFAULT_CHECKED_FILE_PATTERNS)
+    )
+
     return Config(
         clang_tidy_path=clang_tidy_path,
         build_dir=build_dir,
         show_progress=show_progress,
+        checked_file_patterns=checked_file_patterns,
     )
