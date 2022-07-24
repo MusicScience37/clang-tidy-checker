@@ -19,6 +19,8 @@ async def test_parse_config_from_dict_default():
     assert not await trio.Path(output.clang_tidy_path).is_symlink()
     assert await trio.Path(output.clang_tidy_path).is_file()
 
+    assert output.build_dir == "build"
+
 
 @trio.testing.trio_test
 async def test_parse_config_from_dict_search_clang_tidy():
@@ -32,3 +34,20 @@ async def test_parse_config_from_dict_search_clang_tidy():
     assert "gcc" in output.clang_tidy_path
     assert not await trio.Path(output.clang_tidy_path).is_symlink()
     assert await trio.Path(output.clang_tidy_path).is_file()
+
+    assert output.build_dir == "build"
+
+
+@trio.testing.trio_test
+async def test_parse_config_from_dict_with_build_dir():
+    """Test of parse_config_from_dict with build_dir key."""
+
+    input_config = {"build_dir": "build_test"}
+
+    output = await parse_config_from_dict(input_config)
+
+    assert "clang-tidy" in output.clang_tidy_path
+    assert not await trio.Path(output.clang_tidy_path).is_symlink()
+    assert await trio.Path(output.clang_tidy_path).is_file()
+
+    assert output.build_dir == "build_test"

@@ -3,6 +3,7 @@
     "autobuild",
     "cmake",
     "cobertura",
+    "DCMAKE",
     "htmlcov",
     "Kabashima",
     "Kenta",
@@ -15,7 +16,13 @@
     "venv",
     "virtualenvs"
   ],
-  "clangd.arguments": ["--clang-tidy"],
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/sample_inputs/build",
+    "--clang-tidy",
+    "-header-insertion=iwyu"
+  ],
+  "cmake.buildDirectory": "${workspaceFolder}/sample_inputs/build",
+  "cmake.sourceDirectory": "${workspaceFolder}/sample_inputs/",
   "C_Cpp.intelliSenseEngine": "Disabled",
   "C_Cpp.autocomplete": "Disabled",
   "C_Cpp.errorSquiggles": "Disabled",
