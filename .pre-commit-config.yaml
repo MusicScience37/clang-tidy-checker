@@ -1,0 +1,39 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+  - repo: local
+    hooks:
+      - id: clang-format
+        name: clang-format
+        description: Format C++ files with clang-format.
+        language: system
+        files: \.(h|cpp)$
+        entry: clang-format -i
+      - id: cmake-format
+        name: cmake-format
+        description: Format CMake files with cmake-format.
+        language: system
+        files: (CMakeLists.txt|.*\.cmake)$
+        exclude: source_list.cmake
+        entry: poetry run cmake-format -i
+      - id: check-encoding
+        name: check-encoding
+        description: Check encoding of files.
+        language: system
+        entry: poetry run python scripts/check_encoding.py
+      - id: black
+        name: black
+        description: "Black: The uncompromising Python code formatter"
+        entry: black
+        language: python
+        require_serial: true
+        types_or: [python, pyi]
+# Automatically generated files should not be checked.
+exclude: "\\.approved\\."

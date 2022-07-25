@@ -1,0 +1,8 @@
+exit_code: 0
+stdout:
+
+stderr:
+Check of <root-dir>/sample_inputs/proj_no_error/src/main.cpp finished with exit code 0.
+Check of <root-dir>/sample_inputs/proj_no_error/src/sample_function.cpp finished with exit code 0.
+No error detected.
+

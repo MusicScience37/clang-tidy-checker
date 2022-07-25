@@ -1,0 +1,21 @@
+
+
+# Emojis (reference: https://gitmoji.dev/)
+#
+# * New feature     ✨ :sparkles:
+# * Bugfix          🐛 :bug:
+# * Refactoring     ♻️ :recycle:
+# * Breaking Change 💥 :boom:
+# * Performance     ⚡️ :zap:
+# * Fix of warnings 🚨 :rotating_light:
+# * Configuration   🔧 :wrench:
+# * Packaging       📦️ :package:
+# * Documentation   📚 :books:
+# * Tests           ✅ :white_check_mark:
+# * Experiments     ⚗️ :alembic:
+# * WIP             🚧 :construction:
+# * Version tag     🔖 :bookmark:
+#
+#
+# This message can be set using command
+#     git config commit.template .gitmessage
