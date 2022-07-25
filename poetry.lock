@@ -24,7 +24,7 @@ test = ["pytest"]
 
 [[package]]
 name = "approvaltests"
-version = "5.3.1"
+version = "5.3.2"
 description = "Assertion/verification library to aid testing"
 category = "dev"
 optional = false
@@ -735,7 +735,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "sphinx"
-version = "5.0.2"
+version = "5.1.0"
 description = "Python documentation generator"
 category = "dev"
 optional = false
@@ -745,7 +745,7 @@ python-versions = ">=3.6"
 alabaster = ">=0.7,<0.8"
 babel = ">=1.3"
 colorama = {version = ">=0.3.5", markers = "sys_platform == \"win32\""}
-docutils = ">=0.14,<0.19"
+docutils = ">=0.14,<0.20"
 imagesize = "*"
 importlib-metadata = {version = ">=4.4", markers = "python_version < \"3.10\""}
 Jinja2 = ">=2.3"
@@ -762,7 +762,7 @@ sphinxcontrib-serializinghtml = ">=1.1.5"
 
 [package.extras]
 docs = ["sphinxcontrib-websupport"]
-lint = ["flake8 (>=3.5.0)", "isort", "mypy (>=0.950)", "docutils-stubs", "types-typed-ast", "types-requests"]
+lint = ["flake8 (>=3.5.0)", "flake8-comprehensions", "flake8-bugbear", "isort", "mypy (>=0.971)", "sphinx-lint", "docutils-stubs", "types-typed-ast", "types-requests"]
 test = ["pytest (>=4.6)", "html5lib", "cython", "typed-ast"]
 
 [[package]]
@@ -1043,8 +1043,8 @@ allpairspy = [
     {file = "allpairspy-2.5.0.tar.gz", hash = "sha256:9358484c91abe74ba18daf9d6d6904c5be7cc8818397d05248c9d336023c28b1"},
 ]
 approvaltests = [
-    {file = "approvaltests-5.3.1-py3-none-any.whl", hash = "sha256:94e4c7adc2e48143034c98c5af146ab6e6337ccc3a807bff305a3eb3c4619cc1"},
-    {file = "approvaltests-5.3.1.tar.gz", hash = "sha256:90bc01f9c1a5fbe5235cbf30d9b5073dbb9a5dd971b97117d50f39e2d97a17f7"},
+    {file = "approvaltests-5.3.2-py3-none-any.whl", hash = "sha256:93c3bf0bac0c3f5cc7b9db2f82ea2988fb804c9214c86f344d9a043e1a6c3374"},
+    {file = "approvaltests-5.3.2.tar.gz", hash = "sha256:0fb172f6d52d99a484f70c209009c775199a8e5fbc1510fe301df3106c7ee3bd"},
 ]
 astroid = [
     {file = "astroid-2.11.7-py3-none-any.whl", hash = "sha256:86b0a340a512c65abf4368b80252754cda17c02cdbbd3f587dddf98112233e7b"},
@@ -1542,8 +1542,8 @@ soupsieve = [
     {file = "soupsieve-2.3.2.post1.tar.gz", hash = "sha256:fc53893b3da2c33de295667a0e19f078c14bf86544af307354de5fcf12a3f30d"},
 ]
 sphinx = [
-    {file = "Sphinx-5.0.2-py3-none-any.whl", hash = "sha256:d3e57663eed1d7c5c50895d191fdeda0b54ded6f44d5621b50709466c338d1e8"},
-    {file = "Sphinx-5.0.2.tar.gz", hash = "sha256:b18e978ea7565720f26019c702cd85c84376e948370f1cd43d60265010e1c7b0"},
+    {file = "Sphinx-5.1.0-py3-none-any.whl", hash = "sha256:50661b4dbe6a4a1ac15692a7b6db48671da6bae1d4d507e814f1b8525b6bba86"},
+    {file = "Sphinx-5.1.0.tar.gz", hash = "sha256:7893d10d9d852c16673f9b1b7e9eda1606b420b7810270294d6e4b44c0accacc"},
 ]
 sphinx-autobuild = [
     {file = "sphinx-autobuild-2021.3.14.tar.gz", hash = "sha256:de1ca3b66e271d2b5b5140c35034c89e47f263f2cd5db302c9217065f7443f05"},

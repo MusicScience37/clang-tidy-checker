@@ -1,9 +1,25 @@
 [tool.poetry]
 name = "clang_tidy_checker"
-version = "0.1.0"
+version = "0.1.0a1"
 description = "Tool to check C / C++ source codes using clang-tidy."
 authors = ["Kenta Kabashima <kenta_program37@hotmail.co.jp>"]
 license = "MIT"
+readme = "README.md"
+homepage = "https://gitlab.com/MusicScience37/clang-tidy-checker"
+repository = "https://gitlab.com/MusicScience37/clang-tidy-checker.git"
+# documentation = "TODO"
+keywords = ["clang-tidy", "c++"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: Trio",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: C",
+    "Programming Language :: C++",
+    "Topic :: Software Development :: Quality Assurance",
+    "Typing :: Typed",
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -24,7 +40,7 @@ mypy = "^0.971"
 flake8 = "^4.0.1"
 pytest = "^7.1.2"
 pytest-cov = "^3.0.0"
-trio-typing = {extras = ["mypy"], version = "^0.7.0"}
+trio-typing = { extras = ["mypy"], version = "^0.7.0" }
 cmakelang = "^0.6.13"
 pytest-approvaltests = "^0.2.4"
 types-PyYAML = "^6.0.11"
