@@ -33,6 +33,41 @@ stderr:
 
 
 @trio.testing.trio_test
+async def test_help(sample_proj_no_error: pathlib.Path):
+    """Test of help message."""
+
+    await execute(
+        ["clang-tidy-checker", "--help"],
+        cwd=str(sample_proj_no_error),
+    )
+
+
+@trio.testing.trio_test
+async def test_config(sample_proj_no_error: pathlib.Path):
+    """Test of config option."""
+
+    await execute(
+        [
+            "clang-tidy-checker",
+            "--no-ascii",
+            "--config",
+            str(sample_proj_no_error.parent / "configs" / "main_only.yaml"),
+        ],
+        cwd=str(sample_proj_no_error),
+    )
+
+
+@trio.testing.trio_test
+async def test_build_dir(sample_proj_no_error: pathlib.Path):
+    """Test of build_dir option."""
+
+    await execute(
+        ["clang-tidy-checker", "--no-ascii", "--build_dir", "."],
+        cwd=str(sample_proj_no_error),
+    )
+
+
+@trio.testing.trio_test
 async def test_check_proj_no_error(sample_proj_no_error: pathlib.Path):
     """Test of checking project without errors."""
 

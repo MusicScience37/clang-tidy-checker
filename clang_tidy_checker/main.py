@@ -47,7 +47,7 @@ def load_config_file(*config_files) -> dict:
     """
 
     for config_file in config_files:
-        if os.path.exists(config_file):
+        if config_file != "" and os.path.exists(config_file):
             with open(config_file, mode="r", encoding="utf8") as file:
                 return yaml.safe_load(file)
     return {}
@@ -65,7 +65,7 @@ def main(config: str, build_dir: str, pattern: typing.List[str], no_ascii: bool)
 
     logging.basicConfig(level=logging.INFO, format="%(message)s")
 
-    config_dict = load_config_file(".clang-tidy-checker", config)
+    config_dict = load_config_file(config, ".clang-tidy-checker")
     if build_dir != "":
         config_dict[BUILD_DIR_KEY] = build_dir
     if pattern:
