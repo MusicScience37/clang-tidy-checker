@@ -1,0 +1,15 @@
+exit_code: 0
+stdout:
+Usage: clang-tidy-checker [OPTIONS]
+
+  Check files using clang-tidy.
+
+Options:
+  -c, --config TEXT     Configuration file path.
+  -b, --build_dir TEXT  Build directory.
+  -p, --pattern TEXT    Checked file pattern.
+  --no-ascii            Prevent writing ASCII escape sequences.
+  --help                Show this message and exit.
+
+stderr:
+
