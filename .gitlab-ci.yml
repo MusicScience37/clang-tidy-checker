@@ -1,0 +1,57 @@
+stages:
+  - test
+
+include:
+  - template: Dependency-Scanning.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/License-Scanning.gitlab-ci.yml
+
+.poetry-base:
+  image: registry.gitlab.com/musicscience37/my-cpp-env-docker:clang14
+  before_script:
+    - pipx install poetry
+    - poetry config virtualenvs.in-project true
+    - poetry env use python3.9
+    - poetry install
+  cache:
+    key:
+      prefix: poetry-linux
+      files:
+        - poetry.lock
+    paths:
+      - .venv
+
+test:
+  extends: .poetry-base
+  stage: test
+  script:
+    - poetry run pytest --cov clang_tidy_checker/ tests
+    - poetry run coverage report
+    - poetry run coverage xml
+    - poetry run coverage html
+  artifacts:
+    paths:
+      - .coverage
+      - coverage.xml
+      - htmlcov
+      - tests/approvals
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+    when: always
+  coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
+
+pre-commit:
+  extends: .poetry-base
+  stage: test
+  script:
+    - poetry run pre-commit run --all-files
+
+static-checks:
+  extends: .poetry-base
+  stage: test
+  script:
+    - poetry run pylint clang_tidy_checker tests
+    - poetry run mypy clang_tidy_checker tests
+    - poetry run flake8 clang_tidy_checker tests

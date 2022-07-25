@@ -1,0 +1,68 @@
+Checks: >
+  clang-diagnostic-*,
+  clang-analyzer-*,
+  cppcoreguidelines-*,
+  google-*,
+  performance-*,
+  portability-*,
+  readability-*,
+    readability-identifier-naming,
+  modernize-*,
+  hicpp-*,
+  cert-*,
+  bugprone-*,
+  concurrency-*,
+  boost-*,
+  openmp-*,
+
+# Ignored checks:
+#
+# - google-runtime-references is a Google-specific rule, and forces use of raw pointers.
+# - modernize-pass-by-value causes some programs to crash when applied to Eigen's objects
+#   (https://eigen.tuxfamily.org/dox/group__TopicPassingByValue.html).
+# - clang-analyzer-core.UndefinedBinaryOperatorResult cause warnings for Eigen.
+# - clang-analyzer-optin.performance.Padding is hard to be fixed.
+# - readability-function-cognitive-complexity is hard to be fixed in tests.
+# - cppcoreguidelines-owning-memory forces to use an external library.
+# - cppcoreguidelines-pro-bounds-constant-array-index forces to use an external library.
+# - bugprone-easily-swappable-parameters is difficult to fix.
+# - cert-err58-cpp produces warnings in all tests due to Catch2 library.
+# - cppcoreguidelines-avoid-non-const-global-variables produces warnings in all tests due to Catch2 library.
+# - readability-identifier-length prevent traditional codes.
+
+CheckOptions:
+  # Naming Conventions
+  # for these parameters of the naming convention,
+  # see https://clang.llvm.org/extra/clang-tidy/checks/readability-identifier-naming.html
+  - key: readability-identifier-naming.NamespaceCase
+    value: lower_case
+
+  - key: readability-identifier-naming.ClassCase
+    value: lower_case
+  - key: readability-identifier-naming.StructCase
+    value: lower_case
+  - key: readability-identifier-naming.EnumCase
+    value: lower_case
+
+  - key: readability-identifier-naming.FunctionCase
+    value: lower_case
+
+  - key: readability-identifier-naming.VariableCase
+    value: lower_case
+  - key: readability-identifier-naming.ConstantCase
+    value: lower_case
+  - key: readability-identifier-naming.ParameterCase
+    value: lower_case
+  - key: readability-identifier-naming.EnumConstantCase
+    value: lower_case
+  - key: readability-identifier-naming.MemberCase
+    value: lower_case
+  - key: readability-identifier-naming.PrivateMemberSuffix
+    value: _
+  - key: readability-identifier-naming.ProtectedMemberSuffix
+    value: _
+
+  - key: readability-identifier-naming.TypeTemplateParameterCase
+    value: CamelCase
+  - key: readability-identifier-naming.ValueTemplateParameterCase
+    value: CamelCase

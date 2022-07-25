@@ -1,0 +1,45 @@
+{
+  "cSpell.words": [
+    "approvaltests",
+    "autobuild",
+    "autouse",
+    "cmake",
+    "cobertura",
+    "DCMAKE",
+    "htmlcov",
+    "Kabashima",
+    "Kenta",
+    "musicscience",
+    "mypy",
+    "pipx",
+    "pylint",
+    "pytest",
+    "SAST",
+    "tqdm",
+    "venv",
+    "virtualenvs"
+  ],
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/sample_inputs/build",
+    "--clang-tidy",
+    "-header-insertion=iwyu"
+  ],
+  "cmake.buildDirectory": "${workspaceFolder}/sample_inputs/build",
+  "cmake.sourceDirectory": "${workspaceFolder}/sample_inputs/",
+  "C_Cpp.intelliSenseEngine": "Disabled",
+  "C_Cpp.autocomplete": "Disabled",
+  "C_Cpp.errorSquiggles": "Disabled",
+  "esbonio.sphinx.confDir": "${workspaceFolder}/doc/src",
+  "restructuredtext.linter.disabledLinters": ["rstcheck", "rst-lint"],
+  "esbonio.server.enabled": false,
+  "files.watcherExclude": {
+    "**/.venv/**": true
+  },
+  "python.formatting.provider": "black",
+  "hadolint.cliOptions": ["--ignore", "DL3013", "--no-color"],
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.testing.pytestEnabled": true
+}
