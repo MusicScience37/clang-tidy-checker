@@ -13,6 +13,7 @@
     "mypy",
     "pipx",
     "pylint",
+    "pypi",
     "pytest",
     "SAST",
     "tqdm",

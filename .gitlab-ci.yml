@@ -1,5 +1,6 @@
 stages:
   - test
+  - deploy
 
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
@@ -55,3 +56,16 @@ static-checks:
     - poetry run pylint clang_tidy_checker tests
     - poetry run mypy clang_tidy_checker tests
     - poetry run flake8 clang_tidy_checker tests
+
+publish-package:
+  extends: .poetry-base
+  stage: deploy
+  script:
+    - poetry build
+    - poetry config repositories.gitlab ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi
+    - poetry config http-basic.gitlab gitlab-ci-token ${CI_JOB_TOKEN}
+    - poetry config pypi-token.pypi ${PYPI_TOKEN}
+    - poetry publish -r gitlab
+    - poetry publish
+  only:
+    - tags
