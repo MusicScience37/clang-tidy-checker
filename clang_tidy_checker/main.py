@@ -19,11 +19,6 @@ from clang_tidy_checker.config import (
 )
 from clang_tidy_checker.search_checked_files import search_checked_files
 
-try:
-    from yaml import CLoader as YamlLoader  # type: ignore
-except ImportError:
-    from yaml import Loader as YamlLoader  # type: ignore
-
 LOGGER = logging.getLogger(__name__)
 
 
@@ -54,7 +49,7 @@ def load_config_file(*config_files) -> dict:
     for config_file in config_files:
         if os.path.exists(config_file):
             with open(config_file, mode="r", encoding="utf8") as file:
-                return yaml.load(file, YamlLoader)
+                return yaml.safe_load(file)
     return {}
 
 
