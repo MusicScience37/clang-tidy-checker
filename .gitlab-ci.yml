@@ -1,11 +1,15 @@
 stages:
   - test
   - deploy
+  - release
 
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
+
+variables:
+  DOCS_PACKAGE_REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/clang-tidy-checker-docs"
 
 .poetry-base:
   image: registry.gitlab.com/musicscience37/my-cpp-env-docker:clang14
@@ -25,6 +29,7 @@ include:
 test:
   extends: .poetry-base
   stage: test
+  needs: []
   script:
     - poetry run pytest --cov clang_tidy_checker/ tests
     - poetry run coverage report
@@ -46,12 +51,14 @@ test:
 pre-commit:
   extends: .poetry-base
   stage: test
+  needs: []
   script:
     - poetry run pre-commit run --all-files
 
 static-checks:
   extends: .poetry-base
   stage: test
+  needs: []
   script:
     - poetry run pylint clang_tidy_checker tests
     - poetry run mypy clang_tidy_checker tests
@@ -60,6 +67,9 @@ static-checks:
 publish-package:
   extends: .poetry-base
   stage: deploy
+  needs: [test]
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v/
   script:
     - poetry build
     - poetry config repositories.gitlab ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi
@@ -67,5 +77,65 @@ publish-package:
     - poetry config pypi-token.pypi ${PYPI_TOKEN}
     - poetry publish -r gitlab
     - poetry publish
-  only:
-    - tags
+
+build-document:
+  extends: .poetry-base
+  stage: test
+  needs: []
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v/
+      variables:
+        PROJECT_VERSION: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH
+      variables:
+        PROJECT_VERSION: $CI_COMMIT_SHORT_SHA
+  script:
+    - poetry run sphinx-build -b html -W -q -D release=$PROJECT_VERSION
+      doc/source doc/build
+  artifacts:
+    paths:
+      - doc/build
+
+upload-document:
+  # TODO: lighter image with requirements.
+  image: registry.gitlab.com/musicscience37/my-cpp-env-docker:clang14
+  stage: deploy
+  needs: [build-document]
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v/
+  script:
+    - mv doc/build clang-tidy-checker-docs
+    - tar acf clang-tidy-checker-docs.tar.gz clang-tidy-checker-docs
+    - |
+      curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}"
+      --upload-file clang-tidy-checker-docs.tar.gz
+      ${DOCS_PACKAGE_REGISTRY_URL}/${CI_COMMIT_TAG}/clang-tidy-checker-docs.tar.gz
+
+pages:
+  image: ubuntu
+  stage: deploy
+  needs: [build-document]
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - mv doc/public ./
+    - mv doc/build public/dev
+  artifacts:
+    paths:
+      - public
+
+release:
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  stage: release
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v/
+  script:
+    - echo "This is a release job."
+  release:
+    tag_name: $CI_COMMIT_TAG
+    name: "$CI_COMMIT_TAG"
+    description: "Release $CI_COMMIT_TAG"
+    assets:
+      links:
+        - name: "documentation"
+          url: "${DOCS_PACKAGE_REGISTRY_URL}/${CI_COMMIT_TAG}/clang-tidy-checker-docs.tar.gz"
