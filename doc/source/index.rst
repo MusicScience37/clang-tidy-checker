@@ -1,15 +1,13 @@
-.. clang_tidy_checker documentation master file, created by
-   sphinx-quickstart on Sat Jul 23 13:07:38 2022.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to clang_tidy_checker's documentation!
+clang_tidy_checker
 ==============================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+Tool to check C / C++ source codes using clang-tidy.
 
+.. toctree::
+    :maxdepth: 2
+    :caption: Contents
+
+    usage
 
 
 Indices and tables

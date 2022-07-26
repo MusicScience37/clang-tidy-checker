@@ -1,0 +1,8 @@
+[run]
+branch = True
+omit =
+    # omit files without logic.
+    clang_tidy_checker/__init__.py
+    # omit files tested in integration tests.
+    clang_tidy_checker/__main__.py
+    clang_tidy_checker/main.py
