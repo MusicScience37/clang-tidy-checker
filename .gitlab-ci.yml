@@ -117,7 +117,7 @@ pages:
   #rules:
   #  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   script:
-    - mkdir public
+    - mv doc/public ./
     - mv doc/build public/dev
   artifacts:
     paths:
