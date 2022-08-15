@@ -42,6 +42,9 @@ async def execute_clang_tidy(*, config: Config, input_file: str) -> ExecutionRes
             "--warnings-as-errors=*",
             "-p",
             config.build_dir,
+        ]
+        + config.extra_args
+        + [
             input_file,
         ],
         capture_stdout=True,

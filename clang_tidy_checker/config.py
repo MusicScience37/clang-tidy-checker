@@ -35,6 +35,9 @@ DEFAULT_CHECKED_FILE_PATTERNS = [
     "**/*.cc",
 ]
 
+# Key of extra arguments.
+EXTRA_ARGS_KEY = "extra_args"
+
 
 @dataclasses.dataclass
 class Config:
@@ -44,6 +47,7 @@ class Config:
     build_dir: str
     show_progress: bool
     checked_file_patterns: typing.List[str]
+    extra_args: typing.List[str]
 
 
 async def parse_config_from_dict(config: dict) -> Config:
@@ -69,9 +73,12 @@ async def parse_config_from_dict(config: dict) -> Config:
         config.get(CHECKED_FILE_PATTERNS_KEY, DEFAULT_CHECKED_FILE_PATTERNS)
     )
 
+    extra_args = [str(elem) for elem in config.get(EXTRA_ARGS_KEY, [])]
+
     return Config(
         clang_tidy_path=clang_tidy_path,
         build_dir=build_dir,
         show_progress=show_progress,
         checked_file_patterns=checked_file_patterns,
+        extra_args=extra_args,
     )
