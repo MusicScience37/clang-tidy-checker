@@ -107,8 +107,8 @@ upload-document:
     - mv doc/build clang-tidy-checker-docs
     - tar acf clang-tidy-checker-docs.tar.gz clang-tidy-checker-docs
     - |
-      curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}"
-      --upload-file clang-tidy-checker-docs.tar.gz
+      curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" \
+      --upload-file clang-tidy-checker-docs.tar.gz \
       ${DOCS_PACKAGE_REGISTRY_URL}/${CI_COMMIT_TAG}/clang-tidy-checker-docs.tar.gz
 
 pages:

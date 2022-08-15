@@ -6,7 +6,9 @@ import subprocess
 
 import approvaltests
 import approvaltests.reporters
-import approvaltests.reporters.reporter_that_automatically_approves
+from approvaltests.reporters.reporter_that_automatically_approves import (
+    ReporterThatAutomaticallyApproves,
+)
 import pytest
 import trio
 
@@ -20,9 +22,7 @@ SAMPLE_DIR = THIS_DIR.parent / "sample_inputs"
 def configure_approvaltests():
     """Configure approvaltests library."""
 
-    approvaltests.set_default_reporter(
-        approvaltests.reporters.reporter_that_automatically_approves.ReporterThatAutomaticallyApproves()
-    )
+    approvaltests.set_default_reporter(ReporterThatAutomaticallyApproves())
 
 
 def _configure_source(source_dir: pathlib.Path):

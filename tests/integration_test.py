@@ -95,3 +95,18 @@ async def test_check_proj_error(sample_proj_error: pathlib.Path):
         ["clang-tidy-checker", "--no-ascii"],
         cwd=str(sample_proj_error),
     )
+
+
+@trio.testing.trio_test
+async def test_extra_args(sample_proj_warning: pathlib.Path):
+    """Test of extra arguments to clang-tidy."""
+
+    await execute(
+        [
+            "clang-tidy-checker",
+            "--no-ascii",
+            "--extra_arg",
+            "--extra-arg=-any",
+        ],
+        cwd=str(sample_proj_warning),
+    )
