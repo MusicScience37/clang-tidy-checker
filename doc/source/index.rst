@@ -8,6 +8,7 @@ Tool to check C / C++ source codes using clang-tidy.
     :caption: Contents
 
     usage
+    change_log/index
 
 
 Indices and tables
