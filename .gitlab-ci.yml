@@ -134,7 +134,7 @@ release:
   release:
     tag_name: $CI_COMMIT_TAG
     name: "$CI_COMMIT_TAG"
-    description: "Release $CI_COMMIT_TAG"
+    description: "./doc/source/change_log/${CI_COMMIT_TAG}.md"
     assets:
       links:
         - name: "documentation"
