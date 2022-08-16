@@ -62,6 +62,10 @@ templates_path = ["_templates"]
 exclude_patterns: typing.List[str] = []
 
 
+# Markdown
+extensions += ["myst_parser"]
+
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
