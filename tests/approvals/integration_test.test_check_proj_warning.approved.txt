@@ -8,7 +8,7 @@ Check of <root-dir>/sample_inputs/proj_warning/src/sample_function.cpp finished 
 void sample_function() { std::printf("Test"); }
                          ^
 
-3157 warnings generated.
+<count> warnings generated.
 
 Some errors detected.
 
