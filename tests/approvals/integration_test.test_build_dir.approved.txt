@@ -27,7 +27,7 @@ No compilation database found in <root-dir>/sample_inputs/proj_no_error/. or any
 fixed-compilation-database: Error while opening fixed database: No such file or directory
 json-compilation-database: Error while opening JSON database: No such file or directory
 Running without flags.
-34449 warnings and 1 error generated.
+35238 warnings and 1 error generated.
 Error while processing <root-dir>/sample_inputs/proj_no_error/src/sample_function.cpp.
 
 Some errors detected.

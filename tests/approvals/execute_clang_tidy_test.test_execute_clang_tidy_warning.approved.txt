@@ -6,5 +6,5 @@ void sample_function() { std::printf("Test"); }
                          ^
 
 stderr:
-3157 warnings generated.
+<count> warnings generated.
 
