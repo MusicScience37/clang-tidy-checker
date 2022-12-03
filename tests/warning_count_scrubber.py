@@ -14,7 +14,8 @@ def scrub_warning_count(inputs: str) -> str:
         str: Output.
     """
 
-    return re.sub(r"(\d+) warnings generated\.", "<count> warnings generated.", inputs)
+    temp = re.sub(r"\d+ warnings generated\.", "<count> warnings generated.", inputs)
+    return re.sub(r"\d+ warnings and ", "<count> warnings and ", temp)
 
 
 WARNING_COUNT_SCRUBBER = scrub_warning_count
