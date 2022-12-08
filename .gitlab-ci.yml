@@ -54,6 +54,7 @@ test python3.9:
   extends: .test-base
   variables:
     PYTHON_VERSION: "3.9"
+  allow_failure: true
 
 test python3.10:
   extends: .test-base
