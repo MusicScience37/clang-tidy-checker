@@ -13,20 +13,22 @@ variables:
 
 .poetry-base:
   image: registry.gitlab.com/musicscience37/my-cpp-env-docker:clang14
+  variables:
+    PYTHON_VERSION: "3.10"
   before_script:
     - pipx install poetry
     - poetry config virtualenvs.in-project true
-    - poetry env use python3.9
+    - poetry env use ${PYTHON_VERSION}
     - poetry install
   cache:
     key:
-      prefix: poetry-linux
+      prefix: poetry-linux-${PYTHON_VERSION}
       files:
         - poetry.lock
     paths:
       - .venv
 
-test:
+.test-base:
   extends: .poetry-base
   stage: test
   needs: []
@@ -48,6 +50,17 @@ test:
     when: always
   coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
 
+test python3.9:
+  extends: .test-base
+  variables:
+    PYTHON_VERSION: "3.9"
+  allow_failure: true
+
+test python3.10:
+  extends: .test-base
+  variables:
+    PYTHON_VERSION: "3.10"
+
 pre-commit:
   extends: .poetry-base
   stage: test
@@ -67,7 +80,9 @@ static-checks:
 publish-package:
   extends: .poetry-base
   stage: deploy
-  needs: [test]
+  needs:
+    - test python3.9
+    - test python3.10
   rules:
     - if: $CI_COMMIT_TAG =~ /^v/
   script:
@@ -96,21 +111,6 @@ build-document:
     paths:
       - doc/build
 
-upload-document:
-  # TODO: lighter image with requirements.
-  image: registry.gitlab.com/musicscience37/my-cpp-env-docker:clang14
-  stage: deploy
-  needs: [build-document]
-  rules:
-    - if: $CI_COMMIT_TAG =~ /^v/
-  script:
-    - mv doc/build clang-tidy-checker-docs
-    - tar acf clang-tidy-checker-docs.tar.gz clang-tidy-checker-docs
-    - |
-      curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" \
-      --upload-file clang-tidy-checker-docs.tar.gz \
-      ${DOCS_PACKAGE_REGISTRY_URL}/${CI_COMMIT_TAG}/clang-tidy-checker-docs.tar.gz
-
 pages:
   image: ubuntu
   stage: deploy
@@ -118,8 +118,7 @@ pages:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   script:
-    - mv doc/public ./
-    - mv doc/build public/dev
+    - mv doc/build public
   artifacts:
     paths:
       - public
@@ -135,7 +134,3 @@ release:
     tag_name: $CI_COMMIT_TAG
     name: "$CI_COMMIT_TAG"
     description: "./doc/source/change_log/${CI_COMMIT_TAG}.md"
-    assets:
-      links:
-        - name: "documentation"
-          url: "${DOCS_PACKAGE_REGISTRY_URL}/${CI_COMMIT_TAG}/clang-tidy-checker-docs.tar.gz"

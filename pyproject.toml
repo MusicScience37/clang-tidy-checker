@@ -22,7 +22,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">= 3.9, < 3.11"
 trio = "^0.21.0"
 PyYAML = "^6.0"
 click = "^8.1.3"
