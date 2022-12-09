@@ -8,6 +8,7 @@ import trio
 import trio.testing
 
 from .path_scrubber import PATH_SCRUBBER
+from .warning_count_scrubber import WARNING_COUNT_SCRUBBER
 
 
 async def execute(command: typing.List[str], *, cwd: str) -> None:
@@ -28,7 +29,11 @@ stdout:
 stderr:
 {result.stderr.decode("utf8")}
 """,
-        options=approvaltests.Options().with_scrubber(PATH_SCRUBBER),
+        options=approvaltests.Options().with_scrubber(
+            approvaltests.scrubbers.combine_scrubbers(
+                PATH_SCRUBBER, WARNING_COUNT_SCRUBBER
+            )
+        ),
     )
 
 

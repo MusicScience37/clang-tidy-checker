@@ -5,6 +5,7 @@ import copy
 import pathlib
 
 import approvaltests
+import approvaltests.scrubbers
 import trio
 import trio.testing
 
@@ -12,6 +13,7 @@ from clang_tidy_checker.config import Config
 from clang_tidy_checker.execute_clang_tidy import execute_clang_tidy, ExecutionResult
 
 from .path_scrubber import PATH_SCRUBBER
+from .warning_count_scrubber import WARNING_COUNT_SCRUBBER
 
 
 def check_result(result: ExecutionResult):
@@ -29,7 +31,11 @@ stdout:
 stderr:
 {result.stderr}
 """,
-        options=approvaltests.Options().with_scrubber(PATH_SCRUBBER),
+        options=approvaltests.Options().with_scrubber(
+            approvaltests.scrubbers.combine_scrubbers(
+                PATH_SCRUBBER, WARNING_COUNT_SCRUBBER
+            )
+        ),
     )
 
 

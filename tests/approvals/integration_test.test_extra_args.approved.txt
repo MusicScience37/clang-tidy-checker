@@ -13,7 +13,7 @@ error: argument unused during compilation: '-any' [clang-diagnostic-unused-comma
 void sample_function() { std::printf("Test"); }
                          ^
 
-3158 warnings generated.
+<count> warnings generated.
 
 Some errors detected.
 
