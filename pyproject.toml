@@ -9,6 +9,7 @@ homepage = "https://gitlab.com/MusicScience37/clang-tidy-checker"
 repository = "https://gitlab.com/MusicScience37/clang-tidy-checker.git"
 # documentation = "TODO"
 keywords = ["clang-tidy", "c++"]
+# Classifiers: https://pypi.org/classifiers/
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Framework :: Trio",
@@ -17,6 +18,8 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: C",
     "Programming Language :: C++",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "Topic :: Software Development :: Quality Assurance",
     "Typing :: Typed",
 ]
