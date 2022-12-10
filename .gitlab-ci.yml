@@ -12,7 +12,7 @@ variables:
   DOCS_PACKAGE_REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/clang-tidy-checker-docs"
 
 .poetry-base:
-  image: registry.gitlab.com/musicscience37/my-cpp-env-docker:clang14
+  image: registry.gitlab.com/musicscience37projects/docker/my-cpp-env-docker:clang14
   variables:
     PYTHON_VERSION: "3.10"
   before_script:

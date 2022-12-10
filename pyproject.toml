@@ -5,8 +5,8 @@ description = "Tool to check C / C++ source codes using clang-tidy."
 authors = ["Kenta Kabashima <kenta_program37@hotmail.co.jp>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://gitlab.com/MusicScience37/clang-tidy-checker"
-repository = "https://gitlab.com/MusicScience37/clang-tidy-checker.git"
+homepage = "https://gitlab.com/MusicScience37Projects/tools/clang-tidy-checker"
+repository = "https://gitlab.com/MusicScience37Projects/tools/clang-tidy-checker.git"
 # documentation = "TODO"
 keywords = ["clang-tidy", "c++"]
 # Classifiers: https://pypi.org/classifiers/
