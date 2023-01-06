@@ -1,8 +1,9 @@
 """Test of config.py
 """
 
-import trio
-import trio.testing
+import pathlib
+
+import pytest
 
 from clang_tidy_checker.config import (
     parse_config_from_dict,
@@ -10,7 +11,7 @@ from clang_tidy_checker.config import (
 )
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_parse_config_from_dict_default():
     """Test of parse_config_from_dict for default configuration."""
 
@@ -19,8 +20,8 @@ async def test_parse_config_from_dict_default():
     output = await parse_config_from_dict(input_config)
 
     assert "clang-tidy" in output.clang_tidy_path
-    assert not await trio.Path(output.clang_tidy_path).is_symlink()
-    assert await trio.Path(output.clang_tidy_path).is_file()
+    assert not pathlib.Path(output.clang_tidy_path).is_symlink()
+    assert pathlib.Path(output.clang_tidy_path).is_file()
 
     assert output.build_dir == "build"
 
@@ -29,7 +30,7 @@ async def test_parse_config_from_dict_default():
     assert output.checked_file_patterns == DEFAULT_CHECKED_FILE_PATTERNS
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_parse_config_from_dict_search_clang_tidy():
     """Test of parse_config_from_dict to search clang-tidy executable."""
 
@@ -39,8 +40,8 @@ async def test_parse_config_from_dict_search_clang_tidy():
     output = await parse_config_from_dict(input_config)
 
     assert "gcc" in output.clang_tidy_path
-    assert not await trio.Path(output.clang_tidy_path).is_symlink()
-    assert await trio.Path(output.clang_tidy_path).is_file()
+    assert not pathlib.Path(output.clang_tidy_path).is_symlink()
+    assert pathlib.Path(output.clang_tidy_path).is_file()
 
     assert output.build_dir == "build"
 
@@ -49,7 +50,7 @@ async def test_parse_config_from_dict_search_clang_tidy():
     assert output.checked_file_patterns == DEFAULT_CHECKED_FILE_PATTERNS
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_parse_config_from_dict_with_build_dir():
     """Test of parse_config_from_dict with build_dir key."""
 
@@ -58,8 +59,8 @@ async def test_parse_config_from_dict_with_build_dir():
     output = await parse_config_from_dict(input_config)
 
     assert "clang-tidy" in output.clang_tidy_path
-    assert not await trio.Path(output.clang_tidy_path).is_symlink()
-    assert await trio.Path(output.clang_tidy_path).is_file()
+    assert not pathlib.Path(output.clang_tidy_path).is_symlink()
+    assert pathlib.Path(output.clang_tidy_path).is_file()
 
     assert output.build_dir == "build_test"
 
@@ -68,7 +69,7 @@ async def test_parse_config_from_dict_with_build_dir():
     assert output.checked_file_patterns == DEFAULT_CHECKED_FILE_PATTERNS
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_parse_config_from_dict_without_progress():
     """Test of parse_config_from_dict without showing progress."""
 
@@ -77,8 +78,8 @@ async def test_parse_config_from_dict_without_progress():
     output = await parse_config_from_dict(input_config)
 
     assert "clang-tidy" in output.clang_tidy_path
-    assert not await trio.Path(output.clang_tidy_path).is_symlink()
-    assert await trio.Path(output.clang_tidy_path).is_file()
+    assert not pathlib.Path(output.clang_tidy_path).is_symlink()
+    assert pathlib.Path(output.clang_tidy_path).is_file()
 
     assert output.build_dir == "build"
 
@@ -87,7 +88,7 @@ async def test_parse_config_from_dict_without_progress():
     assert output.checked_file_patterns == DEFAULT_CHECKED_FILE_PATTERNS
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_parse_config_from_dict_with_checked_file_patterns():
     """Test of parse_config_from_dict with checked file patterns."""
 
@@ -96,8 +97,8 @@ async def test_parse_config_from_dict_with_checked_file_patterns():
     output = await parse_config_from_dict(input_config)
 
     assert "clang-tidy" in output.clang_tidy_path
-    assert not await trio.Path(output.clang_tidy_path).is_symlink()
-    assert await trio.Path(output.clang_tidy_path).is_file()
+    assert not pathlib.Path(output.clang_tidy_path).is_symlink()
+    assert pathlib.Path(output.clang_tidy_path).is_file()
 
     assert output.build_dir == "build"
 

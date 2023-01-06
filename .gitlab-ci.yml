@@ -60,6 +60,11 @@ test python3.10:
   variables:
     PYTHON_VERSION: "3.10"
 
+test python3.11:
+  extends: .test-base
+  variables:
+    PYTHON_VERSION: "3.11"
+
 pre-commit:
   extends: .poetry-base
   stage: test
