@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "clang_tidy_checker"
-version = "0.1.2"
+version = "0.2.0"
 description = "Tool to check C / C++ source codes using clang-tidy."
 authors = ["Kenta Kabashima <kenta_program37@hotmail.co.jp>"]
 license = "MIT"
