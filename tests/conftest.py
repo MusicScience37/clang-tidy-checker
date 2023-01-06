@@ -1,6 +1,7 @@
 """Configuration of pytest.
 """
 
+import asyncio
 import pathlib
 import subprocess
 
@@ -10,7 +11,6 @@ from approvaltests.reporters.reporter_that_automatically_approves import (
     ReporterThatAutomaticallyApproves,
 )
 import pytest
-import trio
 
 from clang_tidy_checker.config import Config, parse_config_from_dict
 
@@ -89,6 +89,6 @@ def default_config() -> Config:
         Config: Default configuration.
     """
 
-    config = trio.run(parse_config_from_dict, {})
+    config = asyncio.run(parse_config_from_dict({}))
     config.show_progress = False
     return config

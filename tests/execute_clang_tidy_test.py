@@ -1,13 +1,13 @@
 """Test of execute_clang_tidy.py.
 """
 
+
 import copy
 import pathlib
 
 import approvaltests
 import approvaltests.scrubbers
-import trio
-import trio.testing
+import pytest
 
 from clang_tidy_checker.config import Config
 from clang_tidy_checker.execute_clang_tidy import execute_clang_tidy, ExecutionResult
@@ -39,7 +39,7 @@ stderr:
     )
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_execute_clang_tidy_no_error(
     default_config: Config, sample_proj_no_error: pathlib.Path
 ):
@@ -54,7 +54,7 @@ async def test_execute_clang_tidy_no_error(
     check_result(result)
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_execute_clang_tidy_warning(
     default_config: Config, sample_proj_warning: pathlib.Path
 ):
@@ -69,7 +69,7 @@ async def test_execute_clang_tidy_warning(
     check_result(result)
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_execute_clang_tidy_error(
     default_config: Config, sample_proj_error: pathlib.Path
 ):

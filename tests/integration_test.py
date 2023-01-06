@@ -2,10 +2,10 @@
 
 import pathlib
 import typing
+import subprocess
 
 import approvaltests
-import trio
-import trio.testing
+import pytest
 
 from .path_scrubber import PATH_SCRUBBER
 from .warning_count_scrubber import WARNING_COUNT_SCRUBBER
@@ -14,12 +14,12 @@ from .warning_count_scrubber import WARNING_COUNT_SCRUBBER
 async def execute(command: typing.List[str], *, cwd: str) -> None:
     """Execute a command."""
 
-    result = await trio.run_process(
+    result = subprocess.run(
         command,
         cwd=cwd,
         check=False,
-        capture_stdout=True,
-        capture_stderr=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
     )
 
     approvaltests.approvals.verify(
@@ -37,7 +37,7 @@ stderr:
     )
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_help(sample_proj_no_error: pathlib.Path):
     """Test of help message."""
 
@@ -47,7 +47,7 @@ async def test_help(sample_proj_no_error: pathlib.Path):
     )
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_config(sample_proj_no_error: pathlib.Path):
     """Test of config option."""
 
@@ -62,7 +62,7 @@ async def test_config(sample_proj_no_error: pathlib.Path):
     )
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_build_dir(sample_proj_no_error: pathlib.Path):
     """Test of build_dir option."""
 
@@ -72,7 +72,7 @@ async def test_build_dir(sample_proj_no_error: pathlib.Path):
     )
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_check_proj_no_error(sample_proj_no_error: pathlib.Path):
     """Test of checking project without errors."""
 
@@ -82,7 +82,7 @@ async def test_check_proj_no_error(sample_proj_no_error: pathlib.Path):
     )
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_check_proj_warning(sample_proj_warning: pathlib.Path):
     """Test of checking project with a warnings."""
 
@@ -92,7 +92,7 @@ async def test_check_proj_warning(sample_proj_warning: pathlib.Path):
     )
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_check_proj_error(sample_proj_error: pathlib.Path):
     """Test of checking project with an error."""
 
@@ -102,7 +102,7 @@ async def test_check_proj_error(sample_proj_error: pathlib.Path):
     )
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_extra_args(sample_proj_warning: pathlib.Path):
     """Test of extra arguments to clang-tidy."""
 

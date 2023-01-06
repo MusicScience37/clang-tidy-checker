@@ -4,14 +4,13 @@
 import copy
 import pathlib
 
-import trio
-import trio.testing
+import pytest
 
 from clang_tidy_checker.config import Config
 from clang_tidy_checker.check_files import check_files
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_check_files_no_error(
     default_config: Config, sample_proj_no_error: pathlib.Path
 ):
@@ -29,7 +28,7 @@ async def test_check_files_no_error(
     assert result
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_check_files_warning(
     default_config: Config, sample_proj_warning: pathlib.Path
 ):
@@ -47,7 +46,7 @@ async def test_check_files_warning(
     assert not result
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_check_files_error(
     default_config: Config, sample_proj_error: pathlib.Path
 ):

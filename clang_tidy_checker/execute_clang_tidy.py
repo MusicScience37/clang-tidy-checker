@@ -1,9 +1,8 @@
 """Execute clang-tidy."""
 
+import asyncio
 import dataclasses
 import logging
-
-import trio
 
 from clang_tidy_checker.config import Config
 
@@ -35,7 +34,7 @@ async def execute_clang_tidy(*, config: Config, input_file: str) -> ExecutionRes
         ExecutionResult: Result of execution.
     """
 
-    result = await trio.run_process(
+    command = (
         [
             config.clang_tidy_path,
             "--quiet",
@@ -46,34 +45,44 @@ async def execute_clang_tidy(*, config: Config, input_file: str) -> ExecutionRes
         + config.extra_args
         + [
             input_file,
-        ],
-        capture_stdout=True,
-        capture_stderr=True,
-        check=False,
+        ]
     )
-    stdout = result.stdout.decode(encoding=CONSOLE_ENCODING)
-    stderr = result.stderr.decode(encoding=CONSOLE_ENCODING)
 
-    if result.returncode == 0:
-        LOGGER.info(
-            "Check of %s finished with exit code %s.", input_file, result.returncode
-        )
-        if result.stdout != "":
+    process = await asyncio.create_subprocess_exec(
+        *command,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
+    try:
+        stdout_binary, stderr_binary = await process.communicate()
+    except Exception:
+        process.kill()
+        await process.communicate()
+        raise
+
+    stdout = stdout_binary.decode(encoding=CONSOLE_ENCODING)
+    stderr = stderr_binary.decode(encoding=CONSOLE_ENCODING)
+    exit_code = process.returncode
+    assert exit_code is not None
+
+    if exit_code == 0:
+        LOGGER.info("Check of %s finished with exit code %s.", input_file, exit_code)
+        if stdout != "":
             LOGGER.debug("%s", stdout)
-        if result.stderr != "":
+        if stderr != "":
             LOGGER.debug("%s", stderr)
     else:
         LOGGER.warning(
             "Check of %s finished with exit code %s.\n%s\n%s",
             input_file,
-            result.returncode,
+            exit_code,
             stdout,
             stderr,
         )
 
     return ExecutionResult(
         input_file=input_file,
-        exit_code=result.returncode,
+        exit_code=exit_code,
         stdout=stdout,
         stderr=stderr,
     )

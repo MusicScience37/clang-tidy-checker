@@ -4,8 +4,7 @@
 import copy
 import pathlib
 
-import trio
-import trio.testing
+import pytest
 
 from clang_tidy_checker.config import Config
 from clang_tidy_checker.search_checked_files import search_checked_files
@@ -15,7 +14,7 @@ SAMPLE_DIR = THIS_DIR.parent / "sample_inputs"
 RELATIVE_SAMPLE_DIR = SAMPLE_DIR.relative_to(pathlib.Path.cwd())
 
 
-@trio.testing.trio_test
+@pytest.mark.asyncio
 async def test_search_checked_files(default_config: Config):
     """Test of search_checked_files."""
 
