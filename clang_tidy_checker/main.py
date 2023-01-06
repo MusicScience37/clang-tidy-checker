@@ -1,13 +1,13 @@
 """Main function.
 """
 
+import asyncio
 import logging
 import os
 import sys
 import typing
 
 import click
-import trio
 import yaml
 
 from clang_tidy_checker.check_files import check_files
@@ -85,7 +85,7 @@ def main(
     if no_ascii:
         config_dict[SHOW_PROGRESS_KEY] = False
 
-    is_success = trio.run(async_main, config_dict)
+    is_success = asyncio.run(async_main(config_dict))
 
     if is_success:
         LOGGER.info("No error detected.")
