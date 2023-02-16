@@ -19,7 +19,8 @@
         "trond-snekvik.simple-rst",
         "hbenl.vscode-test-explorer",
         "ms-azuretools.vscode-docker",
-        "tamasfe.even-better-toml"
+        "tamasfe.even-better-toml",
+        "redhat.vscode-yaml"
       ],
       "settings": {
         "cmakeFormat.exePath": "/workspaces/numerical-collection-cpp/.venv/bin/cmake-format"
