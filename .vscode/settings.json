@@ -5,6 +5,7 @@
     "autouse",
     "cmake",
     "cobertura",
+    "codecov",
     "DCMAKE",
     "htmlcov",
     "Kabashima",
