@@ -23,7 +23,7 @@
         "redhat.vscode-yaml"
       ],
       "settings": {
-        "cmakeFormat.exePath": "/workspaces/numerical-collection-cpp/.venv/bin/cmake-format"
+        "cmakeFormat.exePath": "/workspaces/clang-tidy-checker/.venv/bin/cmake-format"
       }
     }
   },
