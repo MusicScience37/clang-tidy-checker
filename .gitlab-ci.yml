@@ -11,6 +11,31 @@ include:
 variables:
   DOCS_PACKAGE_REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/clang-tidy-checker-docs"
 
+spell check:
+  stage: test
+  needs: []
+  image: node
+  script:
+    - npm install -g cspell
+    - cspell lint
+      "**/*.h"
+      "**/*.cpp"
+      "**/*.py"
+      "**/*.cmake"
+      "**/*.txt"
+      "**/*.md"
+      "**/*.rst"
+      "**/*.bib"
+      "**/*.yaml"
+      "**/*.yml"
+      "**/*.json"
+      "**/*.toml"
+      "**/*.sh"
+      "**/*.bash"
+      --exclude "**/*.approved.*"
+      --gitignore
+  interruptible: true
+
 .poetry-base:
   image: registry.gitlab.com/musicscience37projects/docker/my-cpp-env-docker:clang14
   variables:
