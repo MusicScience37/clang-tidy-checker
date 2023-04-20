@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "clang_tidy_checker"
-version = "0.2.0"
+version = "0.3.0"
 description = "Tool to check C / C++ source codes using clang-tidy."
 authors = ["Kenta Kabashima <kenta_program37@hotmail.co.jp>"]
 license = "MIT"
@@ -11,7 +11,7 @@ repository = "https://gitlab.com/MusicScience37Projects/tools/clang-tidy-checker
 keywords = ["clang-tidy", "c++"]
 # Classifiers: https://pypi.org/classifiers/
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Framework :: AsyncIO",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
