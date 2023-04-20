@@ -28,6 +28,7 @@ Command usage can be seen with option ``--help`` as follows:
       -c, --config TEXT     Configuration file path.
       -b, --build_dir TEXT  Build directory.
       -p, --pattern TEXT    Checked file pattern.
+      --extra_arg TEXT      Extra argument to clang-tidy command.
       --no-ascii            Prevent writing ASCII escape sequences.
       --help                Show this message and exit.
 
