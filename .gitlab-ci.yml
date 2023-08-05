@@ -37,7 +37,7 @@ spell check:
   interruptible: true
 
 .poetry-base:
-  image: registry.gitlab.com/musicscience37projects/docker/my-cpp-env-docker:clang14
+  image: registry.gitlab.com/musicscience37projects/docker/my-cpp-env-docker:clang15
   variables:
     PYTHON_VERSION: "3.10"
   before_script:
