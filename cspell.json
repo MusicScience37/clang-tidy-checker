@@ -17,6 +17,7 @@
     "genindex",
     "htmlcov",
     "interruptible",
+    "isort",
     "Kabashima",
     "Kenta",
     "maxdepth",

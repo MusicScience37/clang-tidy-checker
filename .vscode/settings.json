@@ -16,12 +16,7 @@
   "files.watcherExclude": {
     "**/.venv/**": true
   },
-  "python.formatting.provider": "black",
   "hadolint.cliOptions": ["--ignore", "DL3013", "--no-color"],
-  "python.linting.enabled": true,
-  "python.linting.flake8Enabled": true,
-  "python.linting.mypyEnabled": true,
-  "python.linting.pylintEnabled": true,
   "python.testing.pytestEnabled": true,
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -31,6 +26,13 @@
   },
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
   },
   "cSpell.enableFiletypes": ["cmake", "toml"]
 }

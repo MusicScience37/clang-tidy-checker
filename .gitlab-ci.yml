@@ -6,7 +6,6 @@ stages:
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml
-  - template: Security/License-Scanning.gitlab-ci.yml
 
 variables:
   DOCS_PACKAGE_REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/clang-tidy-checker-docs"
@@ -37,9 +36,9 @@ spell check:
   interruptible: true
 
 .poetry-base:
-  image: registry.gitlab.com/musicscience37projects/docker/my-cpp-env-docker:clang15
+  image: registry.gitlab.com/musicscience37projects/docker/my-cpp-env-docker:clang16
   variables:
-    PYTHON_VERSION: "3.10"
+    PYTHON_VERSION: "3.11"
   before_script:
     - pipx install poetry
     - poetry config virtualenvs.in-project true

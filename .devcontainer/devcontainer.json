@@ -20,7 +20,12 @@
         "hbenl.vscode-test-explorer",
         "ms-azuretools.vscode-docker",
         "tamasfe.even-better-toml",
-        "redhat.vscode-yaml"
+        "redhat.vscode-yaml",
+        "ms-python.isort",
+        "ms-python.flake8",
+        "ms-python.black-formatter",
+        "ms-python.mypy-type-checker",
+        "ms-python.pylint"
       ],
       "settings": {
         "cmakeFormat.exePath": "/workspaces/clang-tidy-checker/.venv/bin/cmake-format"
