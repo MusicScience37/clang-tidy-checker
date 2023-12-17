@@ -9,11 +9,3 @@ Tool to check C / C++ source codes using clang-tidy.
 
     usage
     change_log/index
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

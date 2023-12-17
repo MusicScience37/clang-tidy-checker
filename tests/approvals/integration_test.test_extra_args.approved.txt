@@ -3,17 +3,19 @@ stdout:
 
 stderr:
 Check of <root-dir>/sample_inputs/proj_warning/src/main.cpp finished with exit code 1.
-error: argument unused during compilation: '-any' [clang-diagnostic-unused-command-line-argument,-warnings-as-errors]
+error: unknown argument: '-any' [clang-diagnostic-error]
 
-1 warning generated.
+1 error generated.
+Error while processing <root-dir>/sample_inputs/proj_warning/src/main.cpp.
 
 Check of <root-dir>/sample_inputs/proj_warning/src/sample_function.cpp finished with exit code 1.
-error: argument unused during compilation: '-any' [clang-diagnostic-unused-command-line-argument,-warnings-as-errors]
+error: unknown argument: '-any' [clang-diagnostic-error]
 <root-dir>/sample_inputs/proj_warning/src/sample_function.cpp:5:26: error: do not call c-style vararg functions [cppcoreguidelines-pro-type-vararg,hicpp-vararg,-warnings-as-errors]
 void sample_function() { std::printf("Test"); }
                          ^
 
-<count> warnings generated.
+<count> warnings and 1 error generated.
+Error while processing <root-dir>/sample_inputs/proj_warning/src/sample_function.cpp.
 
 Some errors detected.
 
