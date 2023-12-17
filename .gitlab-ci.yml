@@ -58,7 +58,7 @@ test:
   needs: []
   parallel:
     matrix:
-      - PYTHON_VERSION_USE: ["3.9", "3.10", "3.11"]
+      - PYTHON_VERSION_USE: ["3.10", "3.11"]
   variables:
     PYTHON_VERSION: $PYTHON_VERSION_USE
   script:
@@ -102,7 +102,6 @@ publish-package:
   extends: .poetry-base
   stage: deploy
   needs:
-    - "test: [3.9]"
     - "test: [3.10]"
     - "test: [3.11]"
   rules:

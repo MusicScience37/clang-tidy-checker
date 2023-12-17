@@ -21,7 +21,6 @@ import typing
 
 import toml
 
-
 # -- Project information -----------------------------------------------------
 
 project = "clang_tidy_checker"
@@ -71,9 +70,17 @@ extensions += ["myst_parser"]
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+html_theme = "sphinx_orange_book_theme"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+
+html_theme_options = {
+    "show_prev_next": False,
+    "pygment_light_style": "gruvbox-light",
+    "pygment_dark_style": "native",
+    "repository_url": "https://gitlab.com/MusicScience37Projects/tools/clang-tidy-checker",
+    "use_repository_button": True,
+}
