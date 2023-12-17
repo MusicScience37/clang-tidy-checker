@@ -56,5 +56,9 @@ isort = "^5.13.2"
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.pylint.main]
+disable = "too-many-instance-attributes,line-too-long,fixme"
+load-plugins = "pylint.extensions.docparams"
+
 [tool.poetry.scripts]
 clang-tidy-checker = "clang_tidy_checker.main:main"
