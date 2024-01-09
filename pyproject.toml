@@ -26,29 +26,29 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
-PyYAML = ">=6.0.1"
+PyYAML = ">=6"
 click = ">=8.1.6"
 tqdm = ">=4.65.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.0"
-Sphinx = "^6.2.1"
-black = "^23.12.0"
+Sphinx = "^7.2.6"
+black = "^23.12.1"
 doc8 = "^1.1.1"
 pylint = "^3.0.3"
 sphinx-autobuild = "^2021.3.14"
-sphinx-orange-book-theme = "^0.1.1"
-mypy = "^1.7.1"
-flake8 = "^6.1.0"
-pytest = "^7.4.3"
+sphinx-orange-book-theme = "^0.2.0"
+mypy = "^1.8.0"
+flake8 = "^7.0.0"
+pytest = "^7.4.4"
 pytest-cov = "^4.1.0"
 cmakelang = "^0.6.13"
 pytest-approvaltests = "^0.2.4"
-types-PyYAML = "^6.0.12.12"
+types-PyYAML = ">=6"
 toml = "^0.10.2"
 types-toml = "^0.10.8.7"
 myst-parser = "^2.0.0"
-pytest-asyncio = "^0.23.2"
+pytest-asyncio = "^0.23.3"
 isort = "^5.13.2"
 
 [build-system]
