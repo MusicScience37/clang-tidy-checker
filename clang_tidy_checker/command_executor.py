@@ -36,11 +36,14 @@ class CommandExecutor:
     async def __aexit__(self, exc_type, exc_value, traceback) -> None:
         self.kill_all()
 
-    async def execute(self, command: typing.List[str]) -> CommandResult:
+    async def execute(
+        self, command: typing.List[str], *, cwd: typing.Optional[str]
+    ) -> CommandResult:
         """Execute a command.
 
         Args:
             command (typing.List[str]): Command.
+            cwd (typing.Optional[str]): Working directory.
 
         Returns:
             CommandResult: Result.
@@ -49,6 +52,7 @@ class CommandExecutor:
             *command,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
+            cwd=cwd,
         )
 
         self._processes.append(process)
