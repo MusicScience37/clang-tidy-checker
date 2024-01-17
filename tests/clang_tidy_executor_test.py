@@ -1,6 +1,4 @@
-"""Test of execute_clang_tidy.py.
-"""
-
+"""Test of clang_tidy_executor.py"""
 
 import copy
 import pathlib
@@ -9,23 +7,24 @@ import approvaltests
 import approvaltests.scrubbers
 import pytest
 
+from clang_tidy_checker.clang_tidy_executor import CheckResult, ClangTidyExecutor
 from clang_tidy_checker.config import Config
-from clang_tidy_checker.execute_clang_tidy import execute_clang_tidy, ExecutionResult
 
 from .path_scrubber import PATH_SCRUBBER
 from .warning_count_scrubber import WARNING_COUNT_SCRUBBER
 
 
-def check_result(result: ExecutionResult):
+def check_result(input_file: str, result: CheckResult):
     """Check a result.
 
     Args:
+        input_file (str): Input file path.
         result (ExecutionResult): Result.
     """
 
     approvaltests.approvals.verify(
-        f"""input_file: {result.input_file}
-exit_code: {result.exit_code}
+        f"""input_file: {input_file}
+success: {result.success}
 stdout:
 {result.stdout}
 stderr:
@@ -49,9 +48,10 @@ async def test_execute_clang_tidy_no_error(
     config.build_dir = str(sample_proj_no_error / "build")
     input_file = str(sample_proj_no_error / "src" / "sample_function.cpp")
 
-    result = await execute_clang_tidy(config=config, input_file=input_file)
+    async with ClangTidyExecutor() as executor:
+        result = await executor.execute(config=config, input_file=input_file)
 
-    check_result(result)
+    check_result(input_file, result)
 
 
 @pytest.mark.asyncio
@@ -64,9 +64,10 @@ async def test_execute_clang_tidy_warning(
     config.build_dir = str(sample_proj_warning / "build")
     input_file = str(sample_proj_warning / "src" / "sample_function.cpp")
 
-    result = await execute_clang_tidy(config=config, input_file=input_file)
+    async with ClangTidyExecutor() as executor:
+        result = await executor.execute(config=config, input_file=input_file)
 
-    check_result(result)
+    check_result(input_file, result)
 
 
 @pytest.mark.asyncio
@@ -79,6 +80,7 @@ async def test_execute_clang_tidy_error(
     config.build_dir = str(sample_proj_error / "build")
     input_file = str(sample_proj_error / "src" / "sample_function.cpp")
 
-    result = await execute_clang_tidy(config=config, input_file=input_file)
+    async with ClangTidyExecutor() as executor:
+        result = await executor.execute(config=config, input_file=input_file)
 
-    check_result(result)
+    check_result(input_file, result)

@@ -1,4 +1,4 @@
-"""Test of CommandExecutor."""
+"""Test of command_executor.py."""
 
 import asyncio
 
