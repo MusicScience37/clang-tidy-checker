@@ -72,7 +72,9 @@ class ClangTidyExecutor(IClangTidyExecutor):
             ]
         )
 
-        result = await self._command_executor.execute(command=command)
+        result = await self._command_executor.execute(
+            command=command, cwd=config.build_dir
+        )
         exit_code = result.exit_code
         stdout = result.stdout
         stderr = result.stderr

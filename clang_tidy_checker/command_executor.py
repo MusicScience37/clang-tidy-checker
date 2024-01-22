@@ -37,13 +37,16 @@ class CommandExecutor:
         self.kill_all()
 
     async def execute(
-        self, command: typing.List[str], *, cwd: typing.Optional[str]
+        self,
+        command: typing.List[str],
+        *,
+        cwd: typing.Optional[str] = None,
     ) -> CommandResult:
         """Execute a command.
 
         Args:
             command (typing.List[str]): Command.
-            cwd (typing.Optional[str]): Working directory.
+            cwd (typing.Optional[str]): Working directory. Defaults to None.
 
         Returns:
             CommandResult: Result.
