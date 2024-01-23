@@ -7,10 +7,10 @@ import subprocess
 
 import approvaltests
 import approvaltests.reporters
+import pytest
 from approvaltests.reporters.reporter_that_automatically_approves import (
     ReporterThatAutomaticallyApproves,
 )
-import pytest
 
 from clang_tidy_checker.config import Config, parse_config_from_dict
 
@@ -91,4 +91,19 @@ def default_config() -> Config:
 
     config = asyncio.run(parse_config_from_dict({}))
     config.show_progress = False
+    return config
+
+
+@pytest.fixture(scope="session")
+def default_config_with_cache() -> Config:
+    """Fixture of default configuration with caching.
+
+    Returns:
+        Config: Default configuration.
+    """
+
+    config = asyncio.run(parse_config_from_dict({}))
+    config.show_progress = False
+    cache_path = THIS_DIR.parent / ".clang-tidy-cache"
+    config.cache_dir = str(cache_path)
     return config

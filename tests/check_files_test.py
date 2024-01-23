@@ -6,8 +6,8 @@ import pathlib
 
 import pytest
 
-from clang_tidy_checker.config import Config
 from clang_tidy_checker.check_files import check_files
+from clang_tidy_checker.config import Config
 
 
 @pytest.mark.asyncio

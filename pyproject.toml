@@ -29,6 +29,7 @@ python = ">=3.10,<3.12"
 PyYAML = ">=6"
 click = ">=8.1.6"
 tqdm = ">=4.65.0"
+msgpack = ">=1.0.7"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.0"
@@ -61,3 +62,6 @@ load-plugins = "pylint.extensions.docparams"
 
 [tool.poetry.scripts]
 clang-tidy-checker = "clang_tidy_checker.main:main"
+
+[tool.isort]
+profile = "black"

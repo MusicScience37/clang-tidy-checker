@@ -1,14 +1,16 @@
 """Integration tests."""
 
 import pathlib
-import typing
 import subprocess
+import typing
 
 import approvaltests
 import pytest
 
 from .path_scrubber import PATH_SCRUBBER
 from .warning_count_scrubber import WARNING_COUNT_SCRUBBER
+
+THIS_DIR = pathlib.Path(__file__).absolute().parent
 
 
 async def execute(command: typing.List[str], *, cwd: str) -> None:
@@ -112,6 +114,21 @@ async def test_extra_args(sample_proj_warning: pathlib.Path):
             "--no-ascii",
             "--extra_arg",
             "--extra-arg=-any",
+        ],
+        cwd=str(sample_proj_warning),
+    )
+
+
+@pytest.mark.asyncio
+async def test_cache_dir(sample_proj_warning: pathlib.Path):
+    """Test of cache directory."""
+
+    await execute(
+        [
+            "clang-tidy-checker",
+            "--no-ascii",
+            "--cache_dir",
+            str(THIS_DIR.parent / ".clang-tidy-cache"),
         ],
         cwd=str(sample_proj_warning),
     )
