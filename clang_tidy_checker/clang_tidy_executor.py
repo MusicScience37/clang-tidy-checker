@@ -8,6 +8,11 @@ import typing
 from clang_tidy_checker.command_executor import CommandExecutor
 from clang_tidy_checker.config import Config
 
+try:
+    from typing import Self
+except ImportError:
+    Self = typing.TypeVar("Self", bound="IClangTidyExecutor")  # type: ignore
+
 LOGGER = logging.getLogger(__name__)
 
 
@@ -24,7 +29,7 @@ class IClangTidyExecutor(abc.ABC):
     """Interface for clang-tidy executor."""
 
     @abc.abstractmethod
-    async def __aenter__(self) -> typing.Self:
+    async def __aenter__(self) -> Self:
         pass
 
     @abc.abstractmethod
@@ -50,7 +55,7 @@ class ClangTidyExecutor(IClangTidyExecutor):
     def __init__(self) -> None:
         self._command_executor = CommandExecutor()
 
-    async def __aenter__(self) -> typing.Self:
+    async def __aenter__(self) -> Self:
         await self._command_executor.__aenter__()
         return self
 

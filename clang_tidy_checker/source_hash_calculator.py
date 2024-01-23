@@ -11,6 +11,11 @@ import typing
 from clang_tidy_checker.command_executor import CommandExecutor
 from clang_tidy_checker.config import Config
 
+try:
+    from typing import Self
+except ImportError:
+    Self = typing.TypeVar("Self", bound="SourceHashCalculator")  # type: ignore
+
 LOGGER = logging.getLogger(__name__)
 
 
@@ -31,7 +36,7 @@ class SourceHashCalculator:
         ) as file:
             self._compile_commands = json.load(file)
 
-    async def __aenter__(self) -> typing.Self:
+    async def __aenter__(self) -> Self:
         await self._command_executor.__aenter__()
         return self
 

@@ -6,6 +6,11 @@ import dataclasses
 import logging
 import typing
 
+try:
+    from typing import Self
+except ImportError:
+    Self = typing.TypeVar("Self", bound="CommandExecutor")  # type: ignore
+
 LOGGER = logging.getLogger(__name__)
 
 
@@ -30,7 +35,7 @@ class CommandExecutor:
         # pylint has a bag (https://github.com/pylint-dev/pylint/issues/1469)
         self._processes: typing.List[asyncio.subprocess.Process] = []
 
-    async def __aenter__(self) -> typing.Self:
+    async def __aenter__(self) -> Self:
         return self
 
     async def __aexit__(self, exc_type, exc_value, traceback) -> None:
