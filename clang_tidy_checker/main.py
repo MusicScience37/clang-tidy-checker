@@ -12,11 +12,12 @@ import yaml
 
 from clang_tidy_checker.check_files import check_files
 from clang_tidy_checker.config import (
-    parse_config_from_dict,
     BUILD_DIR_KEY,
+    CACHE_DIR_KEY,
     CHECKED_FILE_PATTERNS_KEY,
-    SHOW_PROGRESS_KEY,
     EXTRA_ARGS_KEY,
+    SHOW_PROGRESS_KEY,
+    parse_config_from_dict,
 )
 from clang_tidy_checker.search_checked_files import search_checked_files
 
@@ -61,6 +62,7 @@ def load_config_file(*config_files) -> dict:
 @click.option(
     "--extra_arg", multiple=True, help="Extra argument to clang-tidy command."
 )
+@click.option("--cache_dir", default="", help="Cache directory.")
 @click.option(
     "--no-ascii", is_flag=True, help="Prevent writing ASCII escape sequences."
 )
@@ -69,6 +71,7 @@ def main(
     build_dir: str,
     pattern: typing.List[str],
     extra_arg: typing.List[str],
+    cache_dir: str,
     no_ascii: bool,
 ):
     """Check files using clang-tidy."""
@@ -82,6 +85,8 @@ def main(
         config_dict[CHECKED_FILE_PATTERNS_KEY] = pattern
     if extra_arg:
         config_dict[EXTRA_ARGS_KEY] = extra_arg
+    if cache_dir:
+        config_dict[CACHE_DIR_KEY] = cache_dir
     if no_ascii:
         config_dict[SHOW_PROGRESS_KEY] = False
 

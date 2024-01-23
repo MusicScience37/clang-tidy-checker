@@ -62,3 +62,6 @@ load-plugins = "pylint.extensions.docparams"
 
 [tool.poetry.scripts]
 clang-tidy-checker = "clang_tidy_checker.main:main"
+
+[tool.isort]
+profile = "black"

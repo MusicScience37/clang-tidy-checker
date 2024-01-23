@@ -6,7 +6,11 @@ import typing
 import tqdm
 import tqdm.contrib.logging
 
-from clang_tidy_checker.clang_tidy_executor import ClangTidyExecutor
+from clang_tidy_checker.clang_tidy_executor import (
+    CachedClangTidyExecutor,
+    ClangTidyExecutor,
+    IClangTidyExecutor,
+)
 from clang_tidy_checker.config import Config
 
 
@@ -23,7 +27,10 @@ async def check_files(*, config: Config, input_files: typing.List[str]) -> bool:
 
     has_error = False
 
-    executor = ClangTidyExecutor(config=config)
+    if config.cache_dir:
+        executor: IClangTidyExecutor = CachedClangTidyExecutor(config=config)
+    else:
+        executor = ClangTidyExecutor(config=config)
 
     async with executor:
         with tqdm.contrib.logging.logging_redirect_tqdm():

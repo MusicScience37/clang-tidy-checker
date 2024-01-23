@@ -38,6 +38,9 @@ DEFAULT_CHECKED_FILE_PATTERNS = [
 # Key of extra arguments.
 EXTRA_ARGS_KEY = "extra_args"
 
+# Key of cache directory.
+CACHE_DIR_KEY = "cache_dir"
+
 
 @dataclasses.dataclass
 class Config:
@@ -76,11 +79,15 @@ async def parse_config_from_dict(config: dict) -> Config:
 
     extra_args = [str(elem) for elem in config.get(EXTRA_ARGS_KEY, [])]
 
+    cache_dir = config.get(CACHE_DIR_KEY, None)
+    if cache_dir is not None:
+        cache_dir = str(cache_dir)
+
     return Config(
         clang_tidy_path=clang_tidy_path,
         build_dir=build_dir,
         show_progress=show_progress,
         checked_file_patterns=checked_file_patterns,
         extra_args=extra_args,
-        cache_dir=None,  # TODO implementation
+        cache_dir=cache_dir,
     )

@@ -6,8 +6,8 @@ import pathlib
 import pytest
 
 from clang_tidy_checker.config import (
-    parse_config_from_dict,
     DEFAULT_CHECKED_FILE_PATTERNS,
+    parse_config_from_dict,
 )
 
 
@@ -29,6 +29,8 @@ async def test_parse_config_from_dict_default():
 
     assert output.checked_file_patterns == DEFAULT_CHECKED_FILE_PATTERNS
 
+    assert output.cache_dir is None
+
 
 @pytest.mark.asyncio
 async def test_parse_config_from_dict_search_clang_tidy():
@@ -49,6 +51,8 @@ async def test_parse_config_from_dict_search_clang_tidy():
 
     assert output.checked_file_patterns == DEFAULT_CHECKED_FILE_PATTERNS
 
+    assert output.cache_dir is None
+
 
 @pytest.mark.asyncio
 async def test_parse_config_from_dict_with_build_dir():
@@ -67,6 +71,8 @@ async def test_parse_config_from_dict_with_build_dir():
     assert output.show_progress
 
     assert output.checked_file_patterns == DEFAULT_CHECKED_FILE_PATTERNS
+
+    assert output.cache_dir is None
 
 
 @pytest.mark.asyncio
@@ -87,6 +93,8 @@ async def test_parse_config_from_dict_without_progress():
 
     assert output.checked_file_patterns == DEFAULT_CHECKED_FILE_PATTERNS
 
+    assert output.cache_dir is None
+
 
 @pytest.mark.asyncio
 async def test_parse_config_from_dict_with_checked_file_patterns():
@@ -105,3 +113,26 @@ async def test_parse_config_from_dict_with_checked_file_patterns():
     assert output.show_progress
 
     assert output.checked_file_patterns == ["*.cpp"]
+
+    assert output.cache_dir is None
+
+
+@pytest.mark.asyncio
+async def test_parse_config_from_dict_with_cache_dir():
+    """Test of parse_config_from_dict with cache directory."""
+
+    input_config = {"cache_dir": "cache_test"}
+
+    output = await parse_config_from_dict(input_config)
+
+    assert "clang-tidy" in output.clang_tidy_path
+    assert not pathlib.Path(output.clang_tidy_path).is_symlink()
+    assert pathlib.Path(output.clang_tidy_path).is_file()
+
+    assert output.build_dir == "build"
+
+    assert output.show_progress
+
+    assert output.checked_file_patterns == DEFAULT_CHECKED_FILE_PATTERNS
+
+    assert output.cache_dir == "cache_test"

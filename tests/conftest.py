@@ -3,7 +3,6 @@
 
 import asyncio
 import pathlib
-import shutil
 import subprocess
 
 import approvaltests
@@ -106,8 +105,5 @@ def default_config_with_cache() -> Config:
     config = asyncio.run(parse_config_from_dict({}))
     config.show_progress = False
     cache_path = THIS_DIR.parent / ".clang-tidy-cache"
-    if cache_path.exists():
-        shutil.rmtree(str(cache_path))
-    cache_path.mkdir()
     config.cache_dir = str(cache_path)
     return config

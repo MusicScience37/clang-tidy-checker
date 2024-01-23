@@ -1,9 +1,9 @@
 """Search clang-tidy executable.
 """
 
-import shutil
 import logging
 import pathlib
+import shutil
 
 LOGGER = logging.getLogger(__name__)
 

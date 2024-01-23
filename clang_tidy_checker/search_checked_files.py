@@ -1,8 +1,8 @@
 """Search checked files.
 """
 
-import typing
 import pathlib
+import typing
 
 from clang_tidy_checker.config import Config
 

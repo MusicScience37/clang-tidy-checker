@@ -3,7 +3,6 @@
 
 import pathlib
 
-
 THIS_DIR = pathlib.Path(__file__).absolute().parent
 ROOT_DIR = THIS_DIR.parent
 

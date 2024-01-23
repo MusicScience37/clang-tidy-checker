@@ -1,8 +1,8 @@
 """Test of search_clang_tidy.py
 """
 
-import shutil
 import pathlib
+import shutil
 
 import pytest
 
