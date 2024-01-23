@@ -66,7 +66,7 @@ def load_config_file(*config_files) -> dict:
 @click.option(
     "--no-ascii", is_flag=True, help="Prevent writing ASCII escape sequences."
 )
-def main(
+def main(  # pylint: disable=too-many-arguments
     config: str,
     build_dir: str,
     pattern: typing.List[str],
