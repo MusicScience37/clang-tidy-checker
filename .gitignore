@@ -654,3 +654,6 @@ FodyWeavers.xsd
 
 # Temporary output of ApprovalTests
 *.received.*
+
+# Cache of clang-tidy-checker
+.clang-tidy-cache

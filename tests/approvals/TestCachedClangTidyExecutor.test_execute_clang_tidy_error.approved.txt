@@ -1,5 +1,5 @@
 input_file: <root-dir>/sample_inputs/proj_error/src/sample_function.cpp
-success: False
+exit_code: 1
 stdout:
 <root-dir>/sample_inputs/proj_error/src/sample_function.cpp:3:26: error: use of undeclared identifier 'std' [clang-diagnostic-error]
 void sample_function() { std::cout << "Test" << std::endl; }

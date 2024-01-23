@@ -7,7 +7,11 @@ import approvaltests
 import approvaltests.scrubbers
 import pytest
 
-from clang_tidy_checker.clang_tidy_executor import CheckResult, ClangTidyExecutor
+from clang_tidy_checker.clang_tidy_executor import (
+    CachedClangTidyExecutor,
+    CheckResult,
+    ClangTidyExecutor,
+)
 from clang_tidy_checker.config import Config
 
 from .path_scrubber import PATH_SCRUBBER
@@ -24,7 +28,7 @@ def check_result(input_file: str, result: CheckResult):
 
     approvaltests.approvals.verify(
         f"""input_file: {input_file}
-success: {result.success}
+exit_code: {result.exit_code}
 stdout:
 {result.stdout}
 stderr:
@@ -38,49 +42,99 @@ stderr:
     )
 
 
-@pytest.mark.asyncio
-async def test_execute_clang_tidy_no_error(
-    default_config: Config, sample_proj_no_error: pathlib.Path
-):
-    """Test of execute_clang_tidy resulting in no error."""
+class TestClangTidyExecutor:
+    """Test of ClangTidyExecutor class."""
 
-    config = copy.deepcopy(default_config)
-    config.build_dir = str(sample_proj_no_error / "build")
-    input_file = str(sample_proj_no_error / "src" / "sample_function.cpp")
+    @pytest.mark.asyncio
+    async def test_execute_clang_tidy_no_error(
+        self, default_config: Config, sample_proj_no_error: pathlib.Path
+    ):
+        """Test of execute_clang_tidy resulting in no error."""
 
-    async with ClangTidyExecutor() as executor:
-        result = await executor.execute(config=config, input_file=input_file)
+        config = copy.deepcopy(default_config)
+        config.build_dir = str(sample_proj_no_error / "build")
+        input_file = str(sample_proj_no_error / "src" / "sample_function.cpp")
 
-    check_result(input_file, result)
+        async with ClangTidyExecutor(config=config) as executor:
+            result = await executor.execute(input_file=input_file)
+
+        check_result(input_file, result)
+
+    @pytest.mark.asyncio
+    async def test_execute_clang_tidy_warning(
+        self, default_config: Config, sample_proj_warning: pathlib.Path
+    ):
+        """Test of execute_clang_tidy resulting in a warning."""
+
+        config = copy.deepcopy(default_config)
+        config.build_dir = str(sample_proj_warning / "build")
+        input_file = str(sample_proj_warning / "src" / "sample_function.cpp")
+
+        async with ClangTidyExecutor(config=config) as executor:
+            result = await executor.execute(input_file=input_file)
+
+        check_result(input_file, result)
+
+    @pytest.mark.asyncio
+    async def test_execute_clang_tidy_error(
+        self, default_config: Config, sample_proj_error: pathlib.Path
+    ):
+        """Test of execute_clang_tidy resulting in an error."""
+
+        config = copy.deepcopy(default_config)
+        config.build_dir = str(sample_proj_error / "build")
+        input_file = str(sample_proj_error / "src" / "sample_function.cpp")
+
+        async with ClangTidyExecutor(config=config) as executor:
+            result = await executor.execute(input_file=input_file)
+
+        check_result(input_file, result)
 
 
-@pytest.mark.asyncio
-async def test_execute_clang_tidy_warning(
-    default_config: Config, sample_proj_warning: pathlib.Path
-):
-    """Test of execute_clang_tidy resulting in a warning."""
+class TestCachedClangTidyExecutor:
+    """Test of CachedClangTidyExecutor class."""
 
-    config = copy.deepcopy(default_config)
-    config.build_dir = str(sample_proj_warning / "build")
-    input_file = str(sample_proj_warning / "src" / "sample_function.cpp")
+    @pytest.mark.asyncio
+    async def test_execute_clang_tidy_no_error(
+        self, default_config_with_cache: Config, sample_proj_no_error: pathlib.Path
+    ):
+        """Test of execute_clang_tidy resulting in no error."""
 
-    async with ClangTidyExecutor() as executor:
-        result = await executor.execute(config=config, input_file=input_file)
+        config = copy.deepcopy(default_config_with_cache)
+        config.build_dir = str(sample_proj_no_error / "build")
+        input_file = str(sample_proj_no_error / "src" / "sample_function.cpp")
 
-    check_result(input_file, result)
+        async with CachedClangTidyExecutor(config=config) as executor:
+            result = await executor.execute(input_file=input_file)
 
+        check_result(input_file, result)
 
-@pytest.mark.asyncio
-async def test_execute_clang_tidy_error(
-    default_config: Config, sample_proj_error: pathlib.Path
-):
-    """Test of execute_clang_tidy resulting in an error."""
+    @pytest.mark.asyncio
+    async def test_execute_clang_tidy_warning(
+        self, default_config_with_cache: Config, sample_proj_warning: pathlib.Path
+    ):
+        """Test of execute_clang_tidy resulting in a warning."""
 
-    config = copy.deepcopy(default_config)
-    config.build_dir = str(sample_proj_error / "build")
-    input_file = str(sample_proj_error / "src" / "sample_function.cpp")
+        config = copy.deepcopy(default_config_with_cache)
+        config.build_dir = str(sample_proj_warning / "build")
+        input_file = str(sample_proj_warning / "src" / "sample_function.cpp")
 
-    async with ClangTidyExecutor() as executor:
-        result = await executor.execute(config=config, input_file=input_file)
+        async with CachedClangTidyExecutor(config=config) as executor:
+            result = await executor.execute(input_file=input_file)
 
-    check_result(input_file, result)
+        check_result(input_file, result)
+
+    @pytest.mark.asyncio
+    async def test_execute_clang_tidy_error(
+        self, default_config_with_cache: Config, sample_proj_error: pathlib.Path
+    ):
+        """Test of execute_clang_tidy resulting in an error."""
+
+        config = copy.deepcopy(default_config_with_cache)
+        config.build_dir = str(sample_proj_error / "build")
+        input_file = str(sample_proj_error / "src" / "sample_function.cpp")
+
+        async with CachedClangTidyExecutor(config=config) as executor:
+            result = await executor.execute(input_file=input_file)
+
+        check_result(input_file, result)

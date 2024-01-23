@@ -48,6 +48,7 @@ class Config:
     show_progress: bool
     checked_file_patterns: typing.List[str]
     extra_args: typing.List[str]
+    cache_dir: typing.Optional[str]
 
 
 async def parse_config_from_dict(config: dict) -> Config:
@@ -81,4 +82,5 @@ async def parse_config_from_dict(config: dict) -> Config:
         show_progress=show_progress,
         checked_file_patterns=checked_file_patterns,
         extra_args=extra_args,
+        cache_dir=None,  # TODO implementation
     )

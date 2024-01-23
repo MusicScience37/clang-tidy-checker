@@ -1,5 +1,5 @@
 input_file: <root-dir>/sample_inputs/proj_warning/src/sample_function.cpp
-success: False
+exit_code: 1
 stdout:
 <root-dir>/sample_inputs/proj_warning/src/sample_function.cpp:5:26: error: do not call c-style vararg functions [cppcoreguidelines-pro-type-vararg,hicpp-vararg,-warnings-as-errors]
 void sample_function() { std::printf("Test"); }

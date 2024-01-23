@@ -1,5 +1,5 @@
 input_file: <root-dir>/sample_inputs/proj_no_error/src/sample_function.cpp
-success: True
+exit_code: 0
 stdout:
 
 stderr:

@@ -23,7 +23,7 @@ async def check_files(*, config: Config, input_files: typing.List[str]) -> bool:
 
     has_error = False
 
-    executor = ClangTidyExecutor()
+    executor = ClangTidyExecutor(config=config)
 
     async with executor:
         with tqdm.contrib.logging.logging_redirect_tqdm():
@@ -32,8 +32,8 @@ async def check_files(*, config: Config, input_files: typing.List[str]) -> bool:
             )
             # TODO: multiple files at once.
             for input_file in input_files:
-                result = await executor.execute(config=config, input_file=input_file)
-                if not result.success:
+                result = await executor.execute(input_file=input_file)
+                if result.exit_code != 0:
                     has_error = True
                 tqdm_obj.update()
             tqdm_obj.close()
