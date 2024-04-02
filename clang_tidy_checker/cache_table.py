@@ -1,5 +1,6 @@
 """Tables of cached results."""
 
+import datetime
 import typing
 
 import sqlalchemy
@@ -24,6 +25,7 @@ class CacheTable:
                 exit_code=result.exit_code,
                 stdout=result.stdout,
                 stderr=result.stderr,
+                created_at=datetime.datetime.now(),
             )
             session.add(cached_result)
             session.commit()
@@ -49,3 +51,15 @@ class CacheTable:
                 stdout=cached_result.stdout,
                 stderr=cached_result.stderr,
             )
+
+
+def create_cache_table_at(filepath: str) -> CacheTable:
+    """Create a table of caches at a file path.
+
+    Args:
+        filepath (str): File path.
+
+    Returns:
+        CacheTable: Created table.
+    """
+    return CacheTable(engine=sqlalchemy.create_engine(f"sqlite:///{filepath}"))

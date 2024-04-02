@@ -1,5 +1,7 @@
 """Model of cached results."""
 
+import datetime
+
 from sqlalchemy import String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -19,3 +21,4 @@ class CachedCheckResultModel(ModelBase):
     exit_code: Mapped[int]
     stdout: Mapped[str]
     stderr: Mapped[str]
+    created_at: Mapped[datetime.datetime]
