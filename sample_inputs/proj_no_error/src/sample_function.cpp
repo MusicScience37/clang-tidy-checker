@@ -2,4 +2,4 @@
 
 #include <iostream>
 
-void sample_function() { std::cout << "Test" << std::endl; }
+void sample_function() { std::cout << "Test" << '\n'; }

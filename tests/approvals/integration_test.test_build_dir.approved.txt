@@ -4,8 +4,8 @@ stdout:
 stderr:
 Check of <root-dir>/sample_inputs/proj_no_error/src/main.cpp finished with exit code 1.
 <root-dir>/sample_inputs/proj_no_error/src/main.cpp:1:10: error: 'sample_function.h' file not found [clang-diagnostic-error]
-#include "sample_function.h"
-         ^~~~~~~~~~~~~~~~~~~
+    1 | #include "sample_function.h"
+      |          ^~~~~~~~~~~~~~~~~~~
 
 Error while trying to load a compilation database:
 Could not auto-detect compilation database from directory "."
@@ -18,8 +18,8 @@ Error while processing <root-dir>/sample_inputs/proj_no_error/src/main.cpp.
 
 Check of <root-dir>/sample_inputs/proj_no_error/src/sample_function.cpp finished with exit code 1.
 <root-dir>/sample_inputs/proj_no_error/src/sample_function.cpp:1:10: error: 'sample_function.h' file not found [clang-diagnostic-error]
-#include "sample_function.h"
-         ^~~~~~~~~~~~~~~~~~~
+    1 | #include "sample_function.h"
+      |          ^~~~~~~~~~~~~~~~~~~
 
 Error while trying to load a compilation database:
 Could not auto-detect compilation database from directory "."
