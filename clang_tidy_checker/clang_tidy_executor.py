@@ -1,13 +1,13 @@
 """Class to execute clang-tidy."""
 
 import abc
-import dataclasses
 import logging
 import os
 import typing
 
 import msgpack
 
+from clang_tidy_checker.check_result import CheckResult
 from clang_tidy_checker.command_executor import CommandExecutor
 from clang_tidy_checker.config import Config
 from clang_tidy_checker.source_hash_calculator import SourceHashCalculator
@@ -18,15 +18,6 @@ except ImportError:
     Self = typing.TypeVar("Self", bound="IClangTidyExecutor")  # type: ignore
 
 LOGGER = logging.getLogger(__name__)
-
-
-@dataclasses.dataclass
-class CheckResult:
-    """Class of the result of a check."""
-
-    exit_code: int
-    stdout: str
-    stderr: str
 
 
 class IClangTidyExecutor(abc.ABC):

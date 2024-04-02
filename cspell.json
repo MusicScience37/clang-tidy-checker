@@ -33,6 +33,7 @@
     "pypi",
     "pytest",
     "SAST",
+    "sqlalchemy",
     "toctree",
     "todos",
     "tqdm",
