@@ -41,6 +41,12 @@ EXTRA_ARGS_KEY = "extra_args"
 # Key of cache directory.
 CACHE_DIR_KEY = "cache_dir"
 
+# Key of the maximum number of entries in the cache.
+MAX_CACHE_ENTRIES_KEY = "max_cache_entries"
+
+# Default value of the maximum number of entries in the cache.
+DEFAULT_MAX_CACHE_ENTRIES_KEY = 1000
+
 
 @dataclasses.dataclass
 class Config:
@@ -52,6 +58,7 @@ class Config:
     checked_file_patterns: typing.List[str]
     extra_args: typing.List[str]
     cache_dir: typing.Optional[str]
+    max_cache_entries: int
 
 
 async def parse_config_from_dict(config: dict) -> Config:
@@ -83,6 +90,10 @@ async def parse_config_from_dict(config: dict) -> Config:
     if cache_dir is not None:
         cache_dir = str(cache_dir)
 
+    max_cache_entries = int(
+        config.get(MAX_CACHE_ENTRIES_KEY, DEFAULT_MAX_CACHE_ENTRIES_KEY)
+    )
+
     return Config(
         clang_tidy_path=clang_tidy_path,
         build_dir=build_dir,
@@ -90,4 +101,5 @@ async def parse_config_from_dict(config: dict) -> Config:
         checked_file_patterns=checked_file_patterns,
         extra_args=extra_args,
         cache_dir=cache_dir,
+        max_cache_entries=max_cache_entries,
     )

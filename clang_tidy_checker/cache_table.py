@@ -13,9 +13,10 @@ from clang_tidy_checker.check_result import CheckResult
 class CacheTable:
     """Tables of cached results."""
 
-    def __init__(self, engine: sqlalchemy.Engine) -> None:
+    def __init__(self, engine: sqlalchemy.Engine, max_cache_entries: int) -> None:
         self._engine = engine
         ModelBase.metadata.create_all(engine)
+        self._max_cache_entries = max_cache_entries
 
     def save(self, source_hash: str, result: CheckResult) -> None:
         """Save a result of a check."""
@@ -29,6 +30,8 @@ class CacheTable:
             )
             session.add(cached_result)
             session.commit()
+
+        self._remove_old_entries()
 
     def load(self, source_hash: str) -> typing.Optional[CheckResult]:
         """Load a cached result of a check.
@@ -52,14 +55,43 @@ class CacheTable:
                 stderr=cached_result.stderr,
             )
 
+    def _remove_old_entries(self) -> None:
+        """Remove old entries."""
+        with sqlalchemy.orm.Session(self._engine) as session:
+            current_num_entries = typing.cast(
+                int,
+                session.scalar(
+                    sqlalchemy.select(
+                        # Pylint wrongly generate an error.
+                        # pylint: disable=not-callable
+                        sqlalchemy.func.count(CachedCheckResultModel.source_hash)
+                    )
+                ),
+            )
+            if current_num_entries <= self._max_cache_entries:
+                return
+            removed_entries = current_num_entries - self._max_cache_entries
+            statement = (
+                sqlalchemy.select(CachedCheckResultModel)
+                .order_by(CachedCheckResultModel.created_at.asc())
+                .limit(removed_entries)
+            )
+            for entry in session.scalars(statement):
+                session.delete(entry)
+            session.commit()
 
-def create_cache_table_at(filepath: str) -> CacheTable:
+
+def create_cache_table_at(filepath: str, max_cache_entries: int) -> CacheTable:
     """Create a table of caches at a file path.
 
     Args:
         filepath (str): File path.
+        max_cache_entries (int): Maximum number of entries in the cache.
 
     Returns:
         CacheTable: Created table.
     """
-    return CacheTable(engine=sqlalchemy.create_engine(f"sqlite:///{filepath}"))
+    return CacheTable(
+        engine=sqlalchemy.create_engine(f"sqlite:///{filepath}"),
+        max_cache_entries=max_cache_entries,
+    )

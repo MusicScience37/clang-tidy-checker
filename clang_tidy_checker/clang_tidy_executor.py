@@ -125,7 +125,8 @@ class CachedClangTidyExecutor(IClangTidyExecutor):
         self._cache_dir = config.cache_dir
         os.makedirs(config.cache_dir, exist_ok=True)
         self._cache_table = create_cache_table_at(
-            f"{config.cache_dir}/clang_tidy_cache_v2.db"
+            f"{config.cache_dir}/clang_tidy_cache_v2.db",
+            max_cache_entries=config.max_cache_entries,
         )
 
     async def __aenter__(self) -> Self:
