@@ -20,7 +20,7 @@ class TestCacheTable:
 
     def test_save_result(self, engine_for_test: sqlalchemy.Engine) -> None:
         """Test to save a result."""
-        table = CacheTable(engine=engine_for_test)
+        table = CacheTable(engine=engine_for_test, max_cache_entries=100)
 
         source_hash = "abc"
         result = CheckResult(
@@ -37,9 +37,35 @@ class TestCacheTable:
         self, engine_for_test: sqlalchemy.Engine
     ) -> None:
         """Test to try to get a non-existing result."""
-        table = CacheTable(engine=engine_for_test)
+        table = CacheTable(engine=engine_for_test, max_cache_entries=100)
 
         source_hash = "abc"
         loaded_result = table.load(source_hash=source_hash)
 
         assert loaded_result is None
+
+    def test_remove_old_data(self, engine_for_test: sqlalchemy.Engine) -> None:
+        """Test to remove old data."""
+        table = CacheTable(engine=engine_for_test, max_cache_entries=2)
+
+        source_hash1 = "abc"
+        result1 = CheckResult(
+            exit_code=12, stdout="Sample output.", stderr="Sample error."
+        )
+        table.save(source_hash=source_hash1, result=result1)
+
+        source_hash2 = "def"
+        result2 = CheckResult(
+            exit_code=34, stdout="Sample output 2.", stderr="Sample error 2."
+        )
+        table.save(source_hash=source_hash2, result=result2)
+
+        source_hash3 = "ghi"
+        result3 = CheckResult(
+            exit_code=56, stdout="Sample output e.", stderr="Sample error 3."
+        )
+        table.save(source_hash=source_hash3, result=result3)
+
+        assert table.load(source_hash=source_hash1) is None
+        assert table.load(source_hash=source_hash2) == result2
+        assert table.load(source_hash=source_hash3) == result3
