@@ -29,7 +29,6 @@ python = ">=3.10,<3.12"
 PyYAML = ">=6"
 click = ">=8.1.6"
 tqdm = ">=4.65.0"
-msgpack = ">=1.0.7"
 sqlalchemy = ">=2.0.29"
 
 [tool.poetry.group.dev.dependencies]
