@@ -3,6 +3,7 @@ FROM registry.gitlab.com/musicscience37projects/docker/my-cpp-env-docker:clang17
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     sudo \
+    sqlite3 \
     && \
     apt-get autoremove -y && \
     apt-get autoclean && \

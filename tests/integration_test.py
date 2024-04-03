@@ -13,16 +13,21 @@ from .warning_count_scrubber import WARNING_COUNT_SCRUBBER
 THIS_DIR = pathlib.Path(__file__).absolute().parent
 
 
-async def execute(command: typing.List[str], *, cwd: str) -> None:
+async def execute(command: typing.List[str], *, cwd: str, repeat: bool = False) -> None:
     """Execute a command."""
 
-    result = subprocess.run(
-        command,
-        cwd=cwd,
-        check=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
+    repetitions = 1
+    if repeat:
+        repetitions = 3
+
+    for _ in range(repetitions):
+        result = subprocess.run(
+            command,
+            cwd=cwd,
+            check=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
 
     approvaltests.approvals.verify(
         f"""exit_code: {result.returncode}
@@ -131,4 +136,5 @@ async def test_cache_dir(sample_proj_warning: pathlib.Path):
             str(THIS_DIR.parent / ".clang-tidy-cache"),
         ],
         cwd=str(sample_proj_warning),
+        repeat=True,
     )

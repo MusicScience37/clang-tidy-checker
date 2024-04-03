@@ -1,6 +1,7 @@
 """Class to calculate hash of source codes."""
 
 import asyncio
+import base64
 import hashlib
 import json
 import logging
@@ -93,4 +94,6 @@ class SourceHashCalculator:
         Returns:
             str: Hash.
         """
-        return hashlib.sha256(string.encode()).hexdigest()
+        return base64.b64encode(hashlib.sha3_512(string.encode()).digest()).decode(
+            "ascii"
+        )

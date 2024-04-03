@@ -1,13 +1,12 @@
 """Class to execute clang-tidy."""
 
 import abc
-import dataclasses
 import logging
 import os
 import typing
 
-import msgpack
-
+from clang_tidy_checker.cache_table import create_cache_table_at
+from clang_tidy_checker.check_result import CheckResult
 from clang_tidy_checker.command_executor import CommandExecutor
 from clang_tidy_checker.config import Config
 from clang_tidy_checker.source_hash_calculator import SourceHashCalculator
@@ -18,15 +17,6 @@ except ImportError:
     Self = typing.TypeVar("Self", bound="IClangTidyExecutor")  # type: ignore
 
 LOGGER = logging.getLogger(__name__)
-
-
-@dataclasses.dataclass
-class CheckResult:
-    """Class of the result of a check."""
-
-    exit_code: int
-    stdout: str
-    stderr: str
 
 
 class IClangTidyExecutor(abc.ABC):
@@ -124,21 +114,6 @@ class ClangTidyExecutor(IClangTidyExecutor):
         return CheckResult(exit_code=exit_code, stdout=stdout, stderr=stderr)
 
 
-def get_cache_file_path(cache_dir: str, source_hash: str) -> str:
-    """Get the file path of cache file.
-
-    Args:
-        cache_dir (str): Path to the cache directory.
-        source_hash (str): Hash of the source code.
-
-    Returns:
-        str: Path to the cache file.
-    """
-    return os.path.join(
-        cache_dir, source_hash[-1], source_hash[-2], source_hash[-20:-2]
-    )
-
-
 class CachedClangTidyExecutor(IClangTidyExecutor):
     """Class to execute clang-tidy but with caching of results."""
 
@@ -148,6 +123,10 @@ class CachedClangTidyExecutor(IClangTidyExecutor):
         if config.cache_dir is None:
             raise ValueError("Cache directory is required for CachedClangTidyExecutor.")
         self._cache_dir = config.cache_dir
+        os.makedirs(config.cache_dir, exist_ok=True)
+        self._cache_table = create_cache_table_at(
+            f"{config.cache_dir}/clang_tidy_cache_v2.db"
+        )
 
     async def __aenter__(self) -> Self:
         await self._clang_tidy_executor.__aenter__()
@@ -162,34 +141,17 @@ class CachedClangTidyExecutor(IClangTidyExecutor):
         source_hash = await self._source_hash_calculator.calculate(
             input_file=input_file
         )
-        cache_file_path = get_cache_file_path(
-            cache_dir=self._cache_dir, source_hash=source_hash
+
+        result = self._cache_table.load(source_hash=source_hash)
+        if result is None:
+            result = await self._clang_tidy_executor.execute(input_file=input_file)
+            self._cache_table.save(source_hash=source_hash, result=result)
+
+        write_result_log(
+            exit_code=result.exit_code,
+            input_file=input_file,
+            stdout=result.stdout,
+            stderr=result.stderr,
         )
-        if os.path.exists(cache_file_path):
-            with open(cache_file_path, "rb") as file:
-                result_dict = msgpack.unpack(file)
-            exit_code = int(result_dict["error_code"])
-            stdout = str(result_dict["stdout"])
-            stderr = str(result_dict["stderr"])
 
-            write_result_log(
-                exit_code=exit_code,
-                input_file=input_file,
-                stdout=stdout,
-                stderr=stderr,
-            )
-
-            return CheckResult(exit_code=exit_code, stdout=stdout, stderr=stderr)
-
-        result = await self._clang_tidy_executor.execute(input_file=input_file)
-        os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)
-        with open(cache_file_path, "wb") as file:
-            msgpack.pack(
-                {
-                    "error_code": result.exit_code,
-                    "stdout": result.stdout,
-                    "stderr": result.stderr,
-                },
-                file,
-            )
         return result
