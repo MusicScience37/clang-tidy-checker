@@ -32,6 +32,7 @@
     "pypi",
     "pytest",
     "SAST",
+    "setuptools",
     "sqlalchemy",
     "toctree",
     "todos",

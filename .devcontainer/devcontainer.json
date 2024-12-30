@@ -1,6 +1,15 @@
 {
   "build": { "dockerfile": "Dockerfile" },
-  "containerEnv": {},
+  "mounts": [
+    {
+      "type": "volume",
+      "source": "music-science-37-cache",
+      "target": "/cache_volume/"
+    }
+  ],
+  "containerEnv": {
+    "POETRY_CACHE_DIR": "/cache_volume/poetry/"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
