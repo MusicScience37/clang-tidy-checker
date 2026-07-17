@@ -1,5 +1,4 @@
-"""Test search_checked_files.py.
-"""
+"""Test search_checked_files.py."""
 
 import copy
 import pathlib

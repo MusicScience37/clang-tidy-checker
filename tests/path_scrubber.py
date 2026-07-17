@@ -1,5 +1,4 @@
-"""Scrubber of paths.
-"""
+"""Scrubber of paths."""
 
 import pathlib
 

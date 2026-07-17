@@ -1,5 +1,4 @@
-"""Search checked files.
-"""
+"""Search checked files."""
 
 import pathlib
 import typing

@@ -1,5 +1,4 @@
-"""Search clang-tidy executable.
-"""
+"""Search clang-tidy executable."""
 
 import logging
 import pathlib

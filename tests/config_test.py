@@ -1,5 +1,4 @@
-"""Test of config.py
-"""
+"""Test of config.py"""
 
 import pathlib
 
