@@ -6,5 +6,4 @@ stdout:
       |                          ^
 
 stderr:
-<count> warnings generated.
 

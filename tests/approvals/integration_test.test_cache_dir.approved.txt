@@ -8,7 +8,6 @@ Check of <root-dir>/sample_inputs/proj_warning/src/sample_function.cpp finished 
     5 | void sample_function() { std::printf("Test"); }
       |                          ^
 
-<count> warnings generated.
 
 Some errors detected.
 

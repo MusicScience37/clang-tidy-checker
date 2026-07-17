@@ -34,5 +34,7 @@
       "source.organizeImports": "explicit"
     }
   },
-  "cSpell.enableFiletypes": ["cmake", "toml"]
+  "cSpell.enableFiletypes": ["cmake", "toml"],
+  "python-envs.defaultEnvManager": "ms-python.python:poetry",
+  "python-envs.defaultPackageManager": "ms-python.python:poetry"
 }
