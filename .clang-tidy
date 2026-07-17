@@ -5,6 +5,7 @@ Checks: >
   google-*,
   performance-*,
   portability-*,
+    -portability-avoid-pragma-once,
   readability-*,
     readability-identifier-naming,
   modernize-*,
@@ -29,6 +30,7 @@ Checks: >
 # - cert-err58-cpp produces warnings in all tests due to Catch2 library.
 # - cppcoreguidelines-avoid-non-const-global-variables produces warnings in all tests due to Catch2 library.
 # - readability-identifier-length prevent traditional codes.
+# - portability-avoid-pragma-once generates warnings for all header files.
 
 CheckOptions:
   # Naming Conventions

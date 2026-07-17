@@ -15,7 +15,6 @@
       "extensions": [
         "ms-vscode.cpptools",
         "llvm-vs-code-extensions.vscode-clangd",
-        "twxs.cmake",
         "ms-vscode.cmake-tools",
         "cheshirekow.cmake-format",
         "streetsidesoftware.code-spell-checker",

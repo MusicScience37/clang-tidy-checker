@@ -1,5 +1,4 @@
-"""Main function.
-"""
+"""Main function."""
 
 import asyncio
 import logging

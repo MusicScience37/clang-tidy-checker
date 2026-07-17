@@ -9,6 +9,5 @@ stdout:
       |                                                 ^
 
 stderr:
-2 errors generated.
 Error while processing <root-dir>/sample_inputs/proj_error/src/sample_function.cpp.
 

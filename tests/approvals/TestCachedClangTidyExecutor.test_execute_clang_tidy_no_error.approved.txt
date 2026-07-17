@@ -3,5 +3,4 @@ exit_code: 0
 stdout:
 
 stderr:
-<count> warnings generated.
 

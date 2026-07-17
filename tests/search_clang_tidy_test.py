@@ -1,5 +1,4 @@
-"""Test of search_clang_tidy.py
-"""
+"""Test of search_clang_tidy.py"""
 
 import pathlib
 import shutil

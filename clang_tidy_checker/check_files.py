@@ -1,5 +1,4 @@
-"""Check files.
-"""
+"""Check files."""
 
 import typing
 

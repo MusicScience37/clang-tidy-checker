@@ -1,5 +1,4 @@
-"""Test of check_files.py.
-"""
+"""Test of check_files.py."""
 
 import copy
 import pathlib

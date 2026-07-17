@@ -1,5 +1,4 @@
-"""Configuration of pytest.
-"""
+"""Configuration of pytest."""
 
 import asyncio
 import pathlib

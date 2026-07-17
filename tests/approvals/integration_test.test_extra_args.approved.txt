@@ -5,7 +5,6 @@ stderr:
 Check of <root-dir>/sample_inputs/proj_warning/src/main.cpp finished with exit code 1.
 error: unknown argument: '-any' [clang-diagnostic-error]
 
-1 error generated.
 Error while processing <root-dir>/sample_inputs/proj_warning/src/main.cpp.
 
 Check of <root-dir>/sample_inputs/proj_warning/src/sample_function.cpp finished with exit code 1.
@@ -14,7 +13,6 @@ error: unknown argument: '-any' [clang-diagnostic-error]
     5 | void sample_function() { std::printf("Test"); }
       |                          ^
 
-<count> warnings and 1 error generated.
 Error while processing <root-dir>/sample_inputs/proj_warning/src/sample_function.cpp.
 
 Some errors detected.

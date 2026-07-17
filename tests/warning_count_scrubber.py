@@ -1,5 +1,4 @@
-"""Scrubber of numbers of warnings.
-"""
+"""Scrubber of numbers of warnings."""
 
 import re
 

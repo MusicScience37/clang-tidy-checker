@@ -1,5 +1,4 @@
-"""Configuration of this tool.
-"""
+"""Configuration of this tool."""
 
 import dataclasses
 import typing

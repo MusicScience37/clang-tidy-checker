@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Check encoding of files.
-"""
+"""Check encoding of files."""
 
 from sys import argv
 
