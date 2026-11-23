@@ -51,7 +51,7 @@ toml = "^0.10.2"
 types-toml = "^0.10.8.20260518"
 myst-parser = "^5.1.0"
 pytest-asyncio = "^1.4.0"
-isort = "^8.0.1"
+isort = "^9.0.0"
 setuptools = "^84.0.0"
 
 [build-system]
